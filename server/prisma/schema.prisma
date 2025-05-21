@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./src/generated/prisma"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./src/generated/prisma/erd.svg"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique @db.NVarChar(255)
+  username    String   @unique @db.NVarChar(255)
+  clerkId     String   @unique @db.NVarChar(255)
+  ten         String?  @db.NVarChar(255)
+  tieusu      String?  @db.NVarChar(Max)
+  hinhanh     String?  @db.NVarChar(Max)
+  diachi      String?  @db.NVarChar(Max)
+  website     String?  @db.NVarChar(Max)
+  ngaytao     DateTime @default(now()) @db.DateTime
+  ngaycapnhat DateTime @default(now()) @updatedAt @db.DateTime
+
+  baiviet       Baiviet[]
+  binhluan      Binhluan[]
+  dangtheodoi   Theodoi[]  @relation("nguoiTheoDoi")
+  nguoitheodoi  Theodoi[]  @relation("nguoiDuocTheoDoi")
+  thongbao      Thongbao[] @relation("thongbaoNguoidung")
+  thongbaoDaTao Thongbao[] @relation("thongbaoNguoitao")
+
+  yeuthich Yeuthich[]
+
+  guiTinNhan  TinNhan[] @relation("nguoiGui")
+  nhanTinNhan TinNhan[] @relation("nguoiNhan")
+}
+
+model Binhluan {
+  id          Int        @id(map: "PK__Binhluan__3213E83F9A62BE61") @default(autoincrement())
+  noidung     String     @db.NVarChar(Max)
+  baivietID   Int
+  tacgiaID    Int
+  ngaytao     DateTime   @default(now(), map: "DF__Binhluan__ngayta__59063A47") @db.DateTime
+  ngaycapnhat DateTime   @default(now(), map: "DF__Binhluan__ngayca__59FA5E80") @db.DateTime
+  baiviet     Baiviet    @relation(fields: [baivietID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Binhluan_Baiviet")
+  tacgia      User       @relation(fields: [tacgiaID], references: [id], onUpdate: NoAction, map: "FK_Binhluan_User")
+  thongbao    Thongbao[] @relation("BinhluanThongbao")
+}
+
+model Theodoi {
+  id                 Int      @id(map: "PK__Theodoi__3213E83FD29D2C72") @default(autoincrement())
+  nguoidangtheodoiID Int
+  nguoitheodoiID     Int
+  ngaytao            DateTime @default(now(), map: "DF__Theodoi__ngaytao__72C60C4A") @db.DateTime
+  nguoiTheoDoi       User     @relation("nguoiTheoDoi", fields: [nguoidangtheodoiID], references: [id], onUpdate: NoAction, map: "FK_Theodoi_NguoiDangTheoDoi")
+  nguoiDuocTheoDoi   User     @relation("nguoiDuocTheoDoi", fields: [nguoitheodoiID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Theodoi_NguoiTheoDoi")
+
+  @@unique([nguoidangtheodoiID, nguoitheodoiID], map: "UQ_Theodoi_NguoiDangTheoDoi_NguoiTheoDoi")
+}
+
+model Baiviet {
+  id          Int        @id(map: "PK__Baiviet__3213E83FF8BC8F06") @default(autoincrement())
+  tacgiaID    Int
+  noidung     String?    @db.NVarChar(Max)
+  hinhanh     String?    @db.NVarChar(Max)
+  ngaytao     DateTime   @default(now(), map: "DF__Baiviet__ngaytao__534D60F1") @db.DateTime
+  ngaycapnhat DateTime   @default(now(), map: "DF__Baiviet__ngaycap__5441852A") @updatedAt @db.DateTime
+  chudeID     Int
+  chude       Chude      @relation(fields: [chudeID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Baiviet_Chude")
+  tacgia      User       @relation(fields: [tacgiaID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Baiviet_User")
+  binhluan    Binhluan[]
+  thongbao    Thongbao[] @relation("BaivietThongbao")
+  yeuthich    Yeuthich[]
+}
+
+model Yeuthich {
+  id          Int        @id(map: "PK__Yeuthich__3213E83F646C7511") @default(autoincrement())
+  baivietID   Int
+  nguoidungID Int
+  ngaytao     DateTime   @default(now(), map: "DF__Yeuthich__ngayta__66603565") @db.DateTime
+  thongbao    Thongbao[] @relation("YeuthichThongbao")
+  baiviet     Baiviet    @relation(fields: [baivietID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Yeuthich_Baiviet")
+  nguoidung   User       @relation(fields: [nguoidungID], references: [id], onUpdate: NoAction, map: "FK_Yeuthich_User")
+
+  @@unique([nguoidungID, baivietID], map: "UQ_Yeuthich_Nguoidung_Baiviet")
+}
+
+model Thongbao {
+  id          Int       @id(map: "PK__Thongbao__3213E83F119A3813") @default(autoincrement())
+  nguoidungID Int
+  nguoitaoID  Int
+  noidung     String?   @db.NVarChar(Max)
+  baivietID   Int?
+  binhluanID  Int?
+  yeuthichID  Int?
+  loai        String?   @db.NVarChar(255)
+  ngaytao     DateTime  @default(now(), map: "DF__Thongbao__ngayta__282DF8C2") @db.DateTime
+  ngaycapnhat DateTime  @default(now(), map: "DF__Thongbao__ngayca__29221CFB") @updatedAt @db.DateTime
+  daXem       Boolean   @default(false, map: "DF__Thongbao__daXem__2A164134")
+  baiviet     Baiviet?  @relation("BaivietThongbao", fields: [baivietID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Thongbao_Baiviet")
+  binhluan    Binhluan? @relation("BinhluanThongbao", fields: [binhluanID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Thongbao_Binhluan")
+  nguoidung   User      @relation("thongbaoNguoidung", fields: [nguoidungID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Thongbao_NguoiDung")
+  nguoitao    User      @relation("thongbaoNguoitao", fields: [nguoitaoID], references: [id], onUpdate: NoAction, map: "FK_Thongbao_NguoiTao")
+  yeuthich    Yeuthich? @relation("YeuthichThongbao", fields: [yeuthichID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Thongbao_Yeuthich")
+}
+
+model Chude {
+  id      Int       @id(map: "PK__Chude__3213E83FACC92EEA") @default(autoincrement())
+  ten     String    @unique(map: "UQ__Chude__DC107AB10EB79593") @db.NVarChar(255)
+  baiviet Baiviet[]
+}
+
+model TinNhan {
+  id          Int      @id @default(autoincrement())
+  nguoiGuiId  String   @db.NVarChar(255)
+  nguoiGui    User     @relation(name: "nguoiGui", fields: [nguoiGuiId], references: [clerkId], onDelete: NoAction, onUpdate: NoAction)
+  nguoiNhanId String   @db.NVarChar(255)
+  nguoiNhan   User     @relation(name: "nguoiNhan", fields: [nguoiNhanId], references: [clerkId], onDelete: NoAction, onUpdate: NoAction)
+  noidung     String
+  ngaytao     DateTime @default(now())
+}
