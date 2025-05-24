@@ -29,7 +29,6 @@ export default async function getthongbao() {
     baiviet: {
       select: {
         noidung: true,
-        hinhanh: true,
       },
     },
   },

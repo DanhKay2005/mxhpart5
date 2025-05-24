@@ -140,6 +140,7 @@ exports.Prisma.BinhluanScalarFieldEnum = {
   noidung: 'noidung',
   baivietID: 'baivietID',
   tacgiaID: 'tacgiaID',
+  phuongtienID: 'phuongtienID',
   ngaytao: 'ngaytao',
   ngaycapnhat: 'ngaycapnhat'
 };
@@ -155,17 +156,31 @@ exports.Prisma.BaivietScalarFieldEnum = {
   id: 'id',
   tacgiaID: 'tacgiaID',
   noidung: 'noidung',
-  hinhanh: 'hinhanh',
   ngaytao: 'ngaytao',
   ngaycapnhat: 'ngaycapnhat',
   chudeID: 'chudeID',
   congkhai: 'congkhai'
 };
 
-exports.Prisma.YeuthichScalarFieldEnum = {
+exports.Prisma.PhuongTienScalarFieldEnum = {
   id: 'id',
-  baivietID: 'baivietID',
+  url: 'url',
+  loai: 'loai',
+  baivietId: 'baivietId',
+  noidung: 'noidung'
+};
+
+exports.Prisma.YeuthichBaivietScalarFieldEnum = {
+  id: 'id',
   nguoidungID: 'nguoidungID',
+  baivietID: 'baivietID',
+  ngaytao: 'ngaytao'
+};
+
+exports.Prisma.YeuthichPhuongTienScalarFieldEnum = {
+  id: 'id',
+  nguoidungID: 'nguoidungID',
+  phuongtienID: 'phuongtienID',
   ngaytao: 'ngaytao'
 };
 
@@ -176,7 +191,8 @@ exports.Prisma.ThongbaoScalarFieldEnum = {
   noidung: 'noidung',
   baivietID: 'baivietID',
   binhluanID: 'binhluanID',
-  yeuthichID: 'yeuthichID',
+  yeuthichAnhID: 'yeuthichAnhID',
+  yeuthichBaiID: 'yeuthichBaiID',
   loai: 'loai',
   ngaytao: 'ngaytao',
   ngaycapnhat: 'ngaycapnhat',
@@ -221,7 +237,9 @@ exports.Prisma.ModelName = {
   Binhluan: 'Binhluan',
   Theodoi: 'Theodoi',
   Baiviet: 'Baiviet',
-  Yeuthich: 'Yeuthich',
+  PhuongTien: 'PhuongTien',
+  YeuthichBaiviet: 'YeuthichBaiviet',
+  YeuthichPhuongTien: 'YeuthichPhuongTien',
   Thongbao: 'Thongbao',
   Chude: 'Chude',
   TinNhan: 'TinNhan',

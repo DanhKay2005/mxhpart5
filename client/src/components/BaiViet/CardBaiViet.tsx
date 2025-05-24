@@ -42,6 +42,20 @@ import { ButtonBaoCao } from "../Nut/NutBaocao";
 type BaiViet = Awaited<ReturnType<typeof getBaiViet>>;
 type Baiviet = BaiViet[number];
 
+// Component con để phân biệt hiển thị ảnh hay video
+function MediaItem({ src, type }: { src: string; type: string }) {
+  if (type === "video") {
+    return (
+      <video
+        src={src}
+        controls
+        className="rounded-lg max-h-60 w-full object-cover"
+      />
+    );
+  }
+  return <DangHinhAnh src={src} className="rounded-lg max-h-60 w-full object-cover" />;
+}
+
 export default function CardBaiViet({
   baiviet,
   DbNguoidungId,
@@ -257,9 +271,29 @@ export default function CardBaiViet({
               />
             </div>
 
-            <p className="mt-2 whitespace-pre-wrap text-base leading-relaxed">{baiviet.noidung}</p>
+           <Link href={`/baiviet/${baiviet.id}`} className="block">
+  <div className="cursor-pointer">
+    <p className="mt-2 whitespace-pre-wrap text-base leading-relaxed">
+      {baiviet.noidung}
+    </p>
 
-            {baiviet.hinhanh && <DangHinhAnh src={baiviet.hinhanh} />}
+    <div className="mt-2">
+      {baiviet.phuongtien.map((pt) =>
+        pt.loai === "video" ? (
+          <video key={pt.id} src={pt.url} controls className="max-h-60 w-full rounded" />
+        ) : (
+          <Link key={pt.id} href={`/baiviet/${baiviet.id}/hinhanh/${pt.id}`}>
+  <img
+    src={pt.url}
+    alt="Hình ảnh"
+    className="rounded max-h-60 w-full object-cover cursor-pointer hover:opacity-90 transition"
+  />
+</Link>
+        )
+      )}
+    </div>
+  </div>
+</Link>
 
             <div className="flex items-center gap-4 mt-4">
               <NutThich liked={DaThich} count={soLike} onClick={handleYeuThich} disabled={DangThich} />
@@ -272,40 +306,61 @@ export default function CardBaiViet({
                   className={`h-5 w-5 transition-colors ${
                     showComments
                       ? "fill-blue-500 stroke-none"
-                      : "text-muted-foreground dark:text-gray-400"
+                      : "stroke-gray-400 dark:stroke-gray-500"
                   }`}
                 />
-                {baiviet._count.binhluan}
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {baiviet._count.binhluan}
+                </span>
               </button>
+
+              <ButtonBaoCao
+                baivietId={baiviet.id}
+                open={showBaocaoDialog}
+                onOpenChange={setShowBaocaoDialog}
+              />
             </div>
 
+            {/* Bình luận */}
             {showComments && (
-              <div className="mt-4 space-y-3">
-                {binhluanHienThi.length === 0 && (
-                  <p className="text-muted-foreground text-sm italic dark:text-gray-400">Chưa có bình luận nào</p>
-                )}
-
-                {binhluanHienThi.map((bl) => (
-                  <NutBinhLuan
-                    key={bl.id}
-                    bl={bl}
-                    currentUserId={DbNguoidungId}
-                    onDelete={(id) => setBinhluanXoaId(id)}
-                    isDeleting={DangXoaBinhLuan}
-                  />
-                ))}
+              <div className="mt-4">
+                <div className="space-y-3 max-h-52 overflow-y-auto">
+                  {binhluanHienThi.map((bl) => (
+                    <div key={bl.id} className="flex items-start gap-2">
+                      <Avatar className="w-8 h-8 ring-2 ring-primary/20">
+                        <AvatarImage src={bl.tacgia.hinhanh ?? "/avatar.png"} />
+                      </Avatar>
+                      <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 flex-1 relative">
+                        <div className="flex justify-between items-center">
+                          <p className="font-semibold text-sm">{bl.tacgia.ten}</p>
+                          {bl.tacgia.id === DbNguoidungId && (
+                            <button
+                              className="text-red-600 text-xs"
+                              onClick={() => {
+                                setBinhluanXoaId(bl.id);
+                                setShowDeleteDialog(true);
+                              }}
+                            >
+                              Xoá
+                            </button>
+                          )}
+                        </div>
+                        <p className="text-sm">{bl.noidung}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
                 {baiviet._count.binhluan > commentsLimit && (
-                  <Button
-                    variant="link"
-                    className="text-sm"
-                    onClick={() => setCommentsLimit(commentsLimit + 5)}
+                  <button
+                    className="text-primary text-sm mt-2"
+                    onClick={() => setCommentsLimit((prev) => prev + 3)}
                   >
                     Xem thêm bình luận
-                  </Button>
+                  </button>
                 )}
 
-                <div className="flex gap-2 mt-2">
+                <div className="mt-3 flex gap-2">
                   <Input
                     placeholder="Viết bình luận..."
                     value={BinhluanMoi}
@@ -313,9 +368,10 @@ export default function CardBaiViet({
                     onKeyDown={(e) => {
                       if (e.key === "Enter") handleThemBinhLuan();
                     }}
+                    disabled={DangBinhluan}
                   />
-                  <Button onClick={handleThemBinhLuan} disabled={DangBinhluan || !BinhluanMoi.trim()}>
-                    <Send className="h-4 w-4" />
+                  <Button onClick={handleThemBinhLuan} disabled={DangBinhluan}>
+                    Gửi
                   </Button>
                 </div>
               </div>
@@ -324,8 +380,8 @@ export default function CardBaiViet({
             <DeleteCommentDialog
               open={binhluanXoaId !== null}
               isDeleting={DangXoaBinhLuan}
-              onCancel={() => setBinhluanXoaId(null)}
               onDelete={confirmXoaBinhLuan}
+              onCancel={() => setBinhluanXoaId(null)}
             />
           </div>
         </div>

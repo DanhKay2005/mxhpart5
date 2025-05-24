@@ -72,6 +72,14 @@ export async function LayBaivietTuNguoiDung(nguoidungID: number) {
             nguoidungID: true,
           },
         },
+        phuongtien: {
+        select: {
+          id: true,
+          url: true,
+          loai: true,
+          noidung: true,
+        },
+      },
         _count: {
           select: {
             yeuthich: true,
