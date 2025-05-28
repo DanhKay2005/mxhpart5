@@ -21,7 +21,18 @@ export default async function page({ params }: { params: { id: string; phuongtie
         </aside>
 
         <main className="lg:col-span-5 space-y-6">
-          <CardBaiViet baiviet={baiviet} DbNguoidungId={baiviet.tacgia.id} />
+          <CardBaiViet
+            baiviet={{
+              ...baiviet,
+              binhluan: baiviet.binhluan.map((b: any) => ({
+                yeuthichBinhluan: b.yeuthichBinhluan ?? [],
+                _count: b._count ?? {},
+                daThichBinhLuan: b.daThichBinhLuan ?? false,
+                ...b,
+              })),
+            }}
+            DbNguoidungId={baiviet.tacgia.id}
+          />
         </main>
 
         <aside className="hidden lg:block lg:col-span-3">

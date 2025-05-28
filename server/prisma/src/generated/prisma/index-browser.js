@@ -140,6 +140,7 @@ exports.Prisma.BinhluanScalarFieldEnum = {
   noidung: 'noidung',
   baivietID: 'baivietID',
   tacgiaID: 'tacgiaID',
+  phuongtienID: 'phuongtienID',
   ngaytao: 'ngaytao',
   ngaycapnhat: 'ngaycapnhat'
 };
@@ -155,17 +156,10 @@ exports.Prisma.BaivietScalarFieldEnum = {
   id: 'id',
   tacgiaID: 'tacgiaID',
   noidung: 'noidung',
-  hinhanh: 'hinhanh',
   ngaytao: 'ngaytao',
   ngaycapnhat: 'ngaycapnhat',
-  chudeID: 'chudeID'
-};
-
-exports.Prisma.YeuthichScalarFieldEnum = {
-  id: 'id',
-  baivietID: 'baivietID',
-  nguoidungID: 'nguoidungID',
-  ngaytao: 'ngaytao'
+  chudeID: 'chudeID',
+  congkhai: 'congkhai'
 };
 
 exports.Prisma.ThongbaoScalarFieldEnum = {
@@ -175,11 +169,13 @@ exports.Prisma.ThongbaoScalarFieldEnum = {
   noidung: 'noidung',
   baivietID: 'baivietID',
   binhluanID: 'binhluanID',
-  yeuthichID: 'yeuthichID',
   loai: 'loai',
   ngaytao: 'ngaytao',
   ngaycapnhat: 'ngaycapnhat',
-  daXem: 'daXem'
+  daXem: 'daXem',
+  yeuthichAnhID: 'yeuthichAnhID',
+  yeuthichBaiID: 'yeuthichBaiID',
+  yeuthichBinhLuanID: 'yeuthichBinhLuanID'
 };
 
 exports.Prisma.ChudeScalarFieldEnum = {
@@ -192,6 +188,51 @@ exports.Prisma.TinNhanScalarFieldEnum = {
   nguoiGuiId: 'nguoiGuiId',
   nguoiNhanId: 'nguoiNhanId',
   noidung: 'noidung',
+  ngaytao: 'ngaytao',
+  imageBase64: 'imageBase64'
+};
+
+exports.Prisma.BaivietReportScalarFieldEnum = {
+  id: 'id',
+  baivietId: 'baivietId',
+  nguoidungId: 'nguoidungId',
+  lydo: 'lydo',
+  ngaybaocao: 'ngaybaocao'
+};
+
+exports.Prisma.PhuongTienScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  loai: 'loai',
+  baivietId: 'baivietId',
+  noidung: 'noidung',
+  sanphamId: 'sanphamId'
+};
+
+exports.Prisma.SanPhamScalarFieldEnum = {
+  id: 'id',
+  ten: 'ten',
+  mota: 'mota',
+  gia: 'gia',
+  hinhanh: 'hinhanh',
+  loaiID: 'loaiID',
+  nguoibanID: 'nguoibanID',
+  ngaytao: 'ngaytao',
+  ngaycapnhat: 'ngaycapnhat',
+  trangthai: 'trangthai'
+};
+
+exports.Prisma.YeuthichBaivietScalarFieldEnum = {
+  id: 'id',
+  nguoidungID: 'nguoidungID',
+  baivietID: 'baivietID',
+  ngaytao: 'ngaytao'
+};
+
+exports.Prisma.YeuthichPhuongTienScalarFieldEnum = {
+  id: 'id',
+  nguoidungID: 'nguoidungID',
+  phuongtienID: 'phuongtienID',
   ngaytao: 'ngaytao'
 };
 
@@ -211,10 +252,14 @@ exports.Prisma.ModelName = {
   Binhluan: 'Binhluan',
   Theodoi: 'Theodoi',
   Baiviet: 'Baiviet',
-  Yeuthich: 'Yeuthich',
   Thongbao: 'Thongbao',
   Chude: 'Chude',
-  TinNhan: 'TinNhan'
+  TinNhan: 'TinNhan',
+  BaivietReport: 'BaivietReport',
+  PhuongTien: 'PhuongTien',
+  SanPham: 'SanPham',
+  YeuthichBaiviet: 'YeuthichBaiviet',
+  YeuthichPhuongTien: 'YeuthichPhuongTien'
 };
 
 /**

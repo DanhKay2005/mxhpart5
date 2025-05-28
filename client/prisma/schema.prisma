@@ -40,20 +40,25 @@ model User {
   nhanTinNhan TinNhan[] @relation("nguoiNhan")
 
   baocaobaiviet BaivietReport[]
+  SanPham       SanPham[]
 }
 
 model Binhluan {
-  id           Int         @id(map: "PK__Binhluan__3213E83F9A62BE61") @default(autoincrement())
-  noidung      String      @db.NVarChar(Max)
+  id           Int    @id @default(autoincrement())
+  noidung      String @db.NVarChar(Max)
   baivietID    Int?
   tacgiaID     Int
   phuongtienID Int?
-  ngaytao      DateTime    @default(now(), map: "DF__Binhluan__ngayta__59063A47") @db.DateTime
-  ngaycapnhat  DateTime    @default(now(), map: "DF__Binhluan__ngayca__59FA5E80") @db.DateTime
-  baiviet      Baiviet?    @relation(fields: [baivietID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Binhluan_Baiviet")
-  tacgia       User        @relation(fields: [tacgiaID], references: [id], onUpdate: NoAction, map: "FK_Binhluan_User")
-  phuongtien   PhuongTien? @relation("BinhluanPhuongTien", fields: [phuongtienID], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  thongbao     Thongbao[]  @relation("BinhluanThongbao")
+
+  ngaytao     DateTime @default(now()) @db.DateTime
+  ngaycapnhat DateTime @default(now()) @db.DateTime
+
+  // Relations
+  baiviet    Baiviet?    @relation(fields: [baivietID], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tacgia     User        @relation(fields: [tacgiaID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  phuongtien PhuongTien? @relation("BinhluanPhuongTien", fields: [phuongtienID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  thongbao Thongbao[] @relation("BinhluanThongbao")
 }
 
 model Theodoi {
@@ -91,6 +96,8 @@ model PhuongTien {
   baiviet   Baiviet              @relation(fields: [baivietId], references: [id])
   baivietId Int
   noidung   String?              @db.NVarChar(Max)
+  sanphamId Int?
+  sanpham   SanPham?             @relation("PhuongTienSanPham", fields: [sanphamId], references: [id])
   Binhluan  Binhluan[]           @relation("BinhluanPhuongTien")
   Yeuthich  YeuthichPhuongTien[] @relation("YeuthichPhuongTien")
 }
@@ -122,24 +129,25 @@ model YeuthichPhuongTien {
 }
 
 model Thongbao {
-  id            Int                 @id(map: "PK__Thongbao__3213E83F119A3813") @default(autoincrement())
-  nguoidungID   Int
-  nguoitaoID    Int
-  noidung       String?             @db.NVarChar(Max)
-  baivietID     Int?
-  binhluanID    Int?
-  yeuthichAnhID Int? // liên kết với YeuthichPhuongTien
-  yeuthichBaiID Int? // liên kết với YeuthichBaiviet
-  loai          String?             @db.NVarChar(255)
-  ngaytao       DateTime            @default(now(), map: "DF__Thongbao__ngayta__282DF8C2") @db.DateTime
-  ngaycapnhat   DateTime            @default(now(), map: "DF__Thongbao__ngayca__29221CFB") @updatedAt @db.DateTime
-  daXem         Boolean             @default(false, map: "DF__Thongbao__daXem__2A164134")
-  baiviet       Baiviet?            @relation("BaivietThongbao", fields: [baivietID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Thongbao_Baiviet")
-  binhluan      Binhluan?           @relation("BinhluanThongbao", fields: [binhluanID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Thongbao_Binhluan")
-  nguoidung     User                @relation("thongbaoNguoidung", fields: [nguoidungID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Thongbao_NguoiDung")
-  nguoitao      User                @relation("thongbaoNguoitao", fields: [nguoitaoID], references: [id], onUpdate: NoAction, map: "FK_Thongbao_NguoiTao")
-  yeuthichAnh   YeuthichPhuongTien? @relation(fields: [yeuthichAnhID], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  yeuthichBai   YeuthichBaiviet?    @relation(fields: [yeuthichBaiID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                 Int                 @id(map: "PK__Thongbao__3213E83F119A3813") @default(autoincrement())
+  nguoidungID        Int
+  nguoitaoID         Int
+  noidung            String?             @db.NVarChar(Max)
+  baivietID          Int?
+  binhluanID         Int?
+  yeuthichAnhID      Int? // liên kết với YeuthichPhuongTien
+  yeuthichBaiID      Int? // liên kết với YeuthichBaiviet
+  yeuthichBinhLuanID Int? // liên kết với YeuthichBinhLuan
+  loai               String?             @db.NVarChar(255)
+  ngaytao            DateTime            @default(now(), map: "DF__Thongbao__ngayta__282DF8C2") @db.DateTime
+  ngaycapnhat        DateTime            @default(now(), map: "DF__Thongbao__ngayca__29221CFB") @updatedAt @db.DateTime
+  daXem              Boolean             @default(false, map: "DF__Thongbao__daXem__2A164134")
+  baiviet            Baiviet?            @relation("BaivietThongbao", fields: [baivietID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Thongbao_Baiviet")
+  binhluan           Binhluan?           @relation("BinhluanThongbao", fields: [binhluanID], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Thongbao_Binhluan")
+  nguoidung          User                @relation("thongbaoNguoidung", fields: [nguoidungID], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Thongbao_NguoiDung")
+  nguoitao           User                @relation("thongbaoNguoitao", fields: [nguoitaoID], references: [id], onUpdate: NoAction, map: "FK_Thongbao_NguoiTao")
+  yeuthichAnh        YeuthichPhuongTien? @relation(fields: [yeuthichAnhID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  yeuthichBai        YeuthichBaiviet?    @relation(fields: [yeuthichBaiID], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model Chude {
@@ -167,4 +175,21 @@ model BaivietReport {
   nguoidungId Int
   lydo        String
   ngaybaocao  DateTime @default(now())
+}
+
+model SanPham {
+  id          Int      @id @default(autoincrement())
+  ten         String   @db.NVarChar(255)
+  mota        String?  @db.NVarChar(Max)
+  gia         Decimal  @db.Decimal(18, 2)
+  hinhanh     String?  @db.NVarChar(Max)
+  loaiID      Int
+  nguoibanID  Int
+  ngaytao     DateTime @default(now())
+  ngaycapnhat DateTime @default(now()) @updatedAt
+  trangthai   String   @default("dangban")
+
+  nguoiban User @relation(fields: [nguoibanID], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  phuongtien PhuongTien[] @relation("PhuongTienSanPham")
 }

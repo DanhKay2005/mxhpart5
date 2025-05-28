@@ -8,8 +8,14 @@ import {
 } from "@/components/ui/resizable";
 import LeftSidebar from "@/components/Chat/LeftSidebar";
 import RightSidebar from "@/components/Chat/RightSidebar";
+import { useParams } from "next/navigation";
 
-function Page({ params }: { params: { clerkId: string } }) {
+function Page() {
+  // Lấy param clerkId trực tiếp từ router
+  const params = useParams();
+  const clerkIdParam = params?.clerkId;
+  const clerkId = Array.isArray(clerkIdParam) ? clerkIdParam[0] : clerkIdParam || "";
+
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -20,12 +26,14 @@ function Page({ params }: { params: { clerkId: string } }) {
     return () => window.removeEventListener("resize", checkScreenWidth);
   }, []);
 
-    return (
+  // Debug xem clerkId thay đổi đúng không
+  useEffect(() => {
+    console.log("Current clerkId param:", clerkId);
+  }, [clerkId]);
+
+  return (
     <div className="h-[90vh]">
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="h-full flex min-h-0"
-      >
+      <ResizablePanelGroup direction="horizontal" className="h-full flex min-h-0">
         <ResizablePanel
           defaultSize={isMobile ? 15 : 20}
           collapsedSize={isMobile ? 5 : 10}
@@ -38,13 +46,13 @@ function Page({ params }: { params: { clerkId: string } }) {
             isCollapsed ? "min-w-[60px]" : "min-w-[200px]"
           }`}
         >
-          <LeftSidebar isCollapsed={isCollapsed} BanId={params.clerkId} />
+          <LeftSidebar isCollapsed={isCollapsed} BanId={clerkId} />
         </ResizablePanel>
 
         <ResizableHandle withHandle />
 
         <ResizablePanel className="flex flex-col overflow-hidden flex-1 min-h-0">
-          <RightSidebar BanId={params.clerkId} />
+          <RightSidebar BanId={clerkId} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

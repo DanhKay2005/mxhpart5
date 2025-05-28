@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/Nut/theme-provider";
 import { Toaster } from "react-hot-toast";
 import CallListener from "../components/Chat/CallListener";
+import SidebarHoso from "@/components/Sidebar/SidebarHoso";
 
 
 // Custom Fonts
@@ -50,7 +51,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
                <Navbar />
                <CallListener />
               <main className="flex-1 pt-0">
+                
                 <div className="w-full px-4 sm:px-6 lg:px-8">
+
                   <section className="lg:col-span-10">{children}</section>
                 </div>
               </main>

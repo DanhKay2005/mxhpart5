@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   BellIcon,
@@ -6,6 +6,7 @@ import {
   UserIcon,
   MessageCircleIcon,
   LayoutGrid,
+  SearchIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -24,6 +25,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
+import { Input } from '@/components/ui/input';
 import { getAllChude } from '@/actions/Chude.action';
 import * as Icons from 'lucide-react';
 
@@ -35,8 +37,7 @@ type Chude = {
 
 function getIcon(name?: string) {
   const Icon =
-    ((Icons as unknown) as Record<string, any>)[name ?? 'TagIcon'] ??
-    Icons.TagIcon;
+    ((Icons as unknown) as Record<string, any>)[name ?? 'TagIcon'] ?? Icons.TagIcon;
   return <Icon className="w-4 h-4 text-muted-foreground" />;
 }
 
@@ -45,6 +46,7 @@ function DesktopNavbar() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [chudeList, setChudeList] = useState<Chude[]>([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     async function fetchChude() {
@@ -65,11 +67,29 @@ function DesktopNavbar() {
     fetchChude();
   }, []);
 
-  return (
-    <div className="hidden md:flex items-center space-x-4">
-      <ModeToggle />
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (search.trim()) {
+      router.push(`/timkiem?query=${encodeURIComponent(search.trim())}`);
+    }
+  };
 
-      {/* Home */}
+  return (
+  <div className="hidden md:flex items-center justify-between w-full max-w-7xl mx-auto px-4 mt-2">
+    {/* Left side: Navigation items */}
+    <div className="flex items-center space-x-4">
+      
+      <form onSubmit={handleSearch} className="relative w-full max-w-sm mx-4">
+      <Input
+        type="text"
+        placeholder="Tìm kiếm..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="pl-10 pr-4 py-2"
+      />
+      <SearchIcon className="absolute left-3 top-2.5 w-5 h-5 text-muted-foreground" />
+    </form>
+
       <Button variant="ghost" className="flex items-center gap-2" asChild>
         <Link href="/">
           <HomeIcon className="w-4 h-4" />
@@ -100,8 +120,11 @@ function DesktopNavbar() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+    </div>
+    
 
-      {/* Các mục khác */}
+    {/* Right side: User actions */}
+    <div className="flex items-center space-x-4">
       {user ? (
         <>
           <Button variant="ghost" className="flex items-center gap-2" asChild>
@@ -123,16 +146,14 @@ function DesktopNavbar() {
           <Button variant="ghost" className="flex items-center gap-2" asChild>
             <Link
               href={`/hoso/${
-                user.username ??
-                user.emailAddresses[0].emailAddress.split('@')[0]
+                user.username ?? user.emailAddresses[0].emailAddress.split('@')[0]
               }`}
             >
               <UserIcon className="w-4 h-4" />
               <span className="hidden lg:inline">Hồ sơ</span>
             </Link>
           </Button>
-
-          <UserButton />
+          <ModeToggle />
         </>
       ) : (
         <SignInButton mode="modal">
@@ -140,7 +161,9 @@ function DesktopNavbar() {
         </SignInButton>
       )}
     </div>
-  );
+    <UserButton />
+  </div>
+);
 }
 
 export default DesktopNavbar;

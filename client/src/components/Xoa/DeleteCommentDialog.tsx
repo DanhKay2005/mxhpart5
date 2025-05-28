@@ -12,6 +12,9 @@ type DeleteCommentDialogProps = {
   onDelete: () => void;
   onCancel: () => void;
   open: boolean;
+  onOpenChange: (open: boolean) => void;
+  title: string;
+  content: string;
 };
 
 export function DeleteCommentDialog({ isDeleting, onDelete, onCancel, open }: DeleteCommentDialogProps) {

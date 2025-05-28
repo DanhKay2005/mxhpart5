@@ -38,6 +38,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { ButtonBaoCao } from "../Nut/NutBaocao";
+import EmojiPicker from 'emoji-picker-react';
+import { FaRegSmile } from 'react-icons/fa';
 
 type BaiViet = Awaited<ReturnType<typeof getBaiViet>>;
 type Baiviet = BaiViet[number];
@@ -71,6 +73,7 @@ export default function CardBaiViet({
   );
   const [soLike, setSoLike] = useState(baiviet._count.yeuthich);
   const [DangThich, setDangThich] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
   const [BinhluanMoi, setBinhluanMoi] = useState("");
   const [DangBinhluan, setDangBinhluan] = useState(false);
   const [DangXoa, setDangXoa] = useState(false);
@@ -80,6 +83,7 @@ export default function CardBaiViet({
   const [DangXoaBinhLuan, setDangXoaBinhLuan] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showBaocaoDialog, setShowBaocaoDialog] = useState(false);
+  const [showDeleteCommentDialog, setShowDeleteCommentDialog] = useState(false);
 
   const binhluanHienThi = baiviet.binhluan.slice(0, commentsLimit);
 
@@ -156,6 +160,10 @@ export default function CardBaiViet({
       setDangXoaBinhLuan(false);
     }
   };
+
+  const handleEmojiClick = (emojiData: { emoji: string; }) => {
+  setBinhluanMoi((prev) => prev + emojiData.emoji);
+};
 
   return (
     <Card className="mb-6 transition-colors duration-300">
@@ -326,28 +334,16 @@ export default function CardBaiViet({
               <div className="mt-4">
                 <div className="space-y-3 max-h-52 overflow-y-auto">
                   {binhluanHienThi.map((bl) => (
-                    <div key={bl.id} className="flex items-start gap-2">
-                      <Avatar className="w-8 h-8 ring-2 ring-primary/20">
-                        <AvatarImage src={bl.tacgia.hinhanh ?? "/avatar.png"} />
-                      </Avatar>
-                      <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2 flex-1 relative">
-                        <div className="flex justify-between items-center">
-                          <p className="font-semibold text-sm">{bl.tacgia.ten}</p>
-                          {bl.tacgia.id === DbNguoidungId && (
-                            <button
-                              className="text-red-600 text-xs"
-                              onClick={() => {
-                                setBinhluanXoaId(bl.id);
-                                setShowDeleteDialog(true);
-                              }}
-                            >
-                              Xoá
-                            </button>
-                          )}
-                        </div>
-                        <p className="text-sm">{bl.noidung}</p>
-                      </div>
-                    </div>
+                     <NutBinhLuan
+    key={bl.id}
+    bl={bl}
+    currentUserId={DbNguoidungId}
+    onDelete={(id) => {
+      setBinhluanXoaId(id);
+      setShowDeleteCommentDialog(true);
+    }}
+    isDeleting={false} 
+  />
                   ))}
                 </div>
 
@@ -360,20 +356,36 @@ export default function CardBaiViet({
                   </button>
                 )}
 
-                <div className="mt-3 flex gap-2">
-                  <Input
-                    placeholder="Viết bình luận..."
-                    value={BinhluanMoi}
-                    onChange={(e) => setBinhluanMoi(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") handleThemBinhLuan();
-                    }}
-                    disabled={DangBinhluan}
-                  />
-                  <Button onClick={handleThemBinhLuan} disabled={DangBinhluan}>
-                    Gửi
-                  </Button>
-                </div>
+                  <div className="mt-3 flex flex-col gap-2">
+    <div className="relative flex items-center gap-2">
+      <div className="relative flex-1">
+        <Input
+          placeholder="Viết bình luận..."
+          value={BinhluanMoi}
+          onChange={(e) => setBinhluanMoi(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleThemBinhLuan();
+          }}
+          disabled={DangBinhluan}
+          className="pl-10"
+        />
+        <div
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"
+          onClick={() => setShowEmoji((prev) => !prev)}
+        >
+          <FaRegSmile size={20} />
+        </div>
+      </div>
+      <Button onClick={handleThemBinhLuan} disabled={DangBinhluan}>
+        Gửi
+      </Button>
+    </div>
+    {showEmoji && (
+      <div className="mt-2">
+        <EmojiPicker onEmojiClick={handleEmojiClick} />
+      </div>
+    )}
+  </div>
               </div>
             )}
 
@@ -381,8 +393,10 @@ export default function CardBaiViet({
               open={binhluanXoaId !== null}
               isDeleting={DangXoaBinhLuan}
               onDelete={confirmXoaBinhLuan}
-              onCancel={() => setBinhluanXoaId(null)}
-            />
+              onCancel={() => setBinhluanXoaId(null)} 
+              onOpenChange={function (open: boolean): void {
+                throw new Error("Function not implemented.");
+              } } title={""} content={""}            />
           </div>
         </div>
       </CardContent>

@@ -111,8 +111,15 @@ export default function AnhDetailPage() {
     load();
   }, [phuongtienId, baivietId]);
 
-  if (!phuongtienId) return <div>ID ảnh không hợp lệ</div>;
-  if (!phuongTien) return <div>Không tìm thấy ảnh</div>;
+  if (!phuongTien) return;
+
+  const handleBack = () => {
+  if (typeof window !== "undefined" && window.history.length > 1) {
+    router.back();
+  } else {
+    router.push(`/baiviet/${baivietId}`);
+  }
+};
 
   return (
     <Sheet open onOpenChange={(open) => !open && router.back()}>
@@ -120,12 +127,12 @@ export default function AnhDetailPage() {
         side="bottom"
         className="h-screen w-screen p-0 bg-black text-white overflow-hidden"
       >
-        <Link
-          href={`/baiviet/${baivietId}`}
-          className="absolute top-4 left-4 z-50 text-muted-foreground"
-        >
-          <X size={28} />
-        </Link>
+        <button
+  onClick={handleBack}
+  className="absolute top-4 left-4 z-50 text-muted-foreground"
+>
+  <X size={28} />
+</button>
         <div className="flex h-full">
           <PhuongTienViewer
             dsPhuongTienBaiviet={dsPhuongTienBaiviet}

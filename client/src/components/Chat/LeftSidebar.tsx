@@ -25,13 +25,37 @@ function LeftSidebar({ isCollapsed, BanId }: LeftSidebarProps) {
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUsers = await AllUser();
+      console.log("Fetched users:", fetchedUsers);
       if (fetchedUsers.length > 0) setUsers(fetchedUsers);
     };
     fetchUser();
   }, []);
 
+  // So sánh convert về string cho chắc chắn
+  const selectedUser = users.find(
+    (user) => String(user.clerkId) === String(BanId)
+  );
+
   return (
     <div className={cn("p-3 h-full flex flex-col", isCollapsed && "p-2")}>
+      
+      {/* Hiển thị thông tin user được chọn nếu có */}
+      {selectedUser && (
+        <div className="mb-4 p-3 bg-blue-50 rounded-md">
+          <p className="font-semibold text-blue-700">Đang trò chuyện với:</p>
+          <div className="flex items-center space-x-3 mt-2">
+            <Image
+              src={selectedUser.hinhanh ?? "/default-avatar.png"}
+              alt={selectedUser.ten ?? "Người dùng"}
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <span className="text-blue-900 font-medium truncate">{selectedUser.ten}</span>
+          </div>
+        </div>
+      )}
+
       <div
         className={cn(
           "mt-2 flex flex-col overflow-y-auto",
@@ -39,15 +63,15 @@ function LeftSidebar({ isCollapsed, BanId }: LeftSidebarProps) {
         )}
       >
         {users.map((user) => {
-          const isActive = user.clerkId === BanId; // Kiểm tra user đang chọn để highlight
+          const isActive = String(user.clerkId) === String(BanId);
           return (
             <Link href={`/tinnhan/t/${user.clerkId}`} key={user.id}>
               <Card
                 className={cn(
                   "flex items-center cursor-pointer transition hover:bg-gray-100",
-                  isCollapsed ? "justify-center p-2" : "space-x-3 p-4",
-                  isActive && "bg-blue-100 dark:bg-blue-900" // highlight nếu trùng BanId
+                  isCollapsed ? "justify-center p-2" : "space-x-3 p-4"
                 )}
+                style={isActive ? { backgroundColor: "lightblue" } : undefined}
               >
                 <div
                   className={cn(

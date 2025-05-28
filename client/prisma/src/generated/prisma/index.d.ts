@@ -68,6 +68,11 @@ export type TinNhan = $Result.DefaultSelection<Prisma.$TinNhanPayload>
  * 
  */
 export type BaivietReport = $Result.DefaultSelection<Prisma.$BaivietReportPayload>
+/**
+ * Model SanPham
+ * 
+ */
+export type SanPham = $Result.DefaultSelection<Prisma.$SanPhamPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -303,6 +308,16 @@ export class PrismaClient<
     * ```
     */
   get baivietReport(): Prisma.BaivietReportDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sanPham`: Exposes CRUD operations for the **SanPham** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SanPhams
+    * const sanPhams = await prisma.sanPham.findMany()
+    * ```
+    */
+  get sanPham(): Prisma.SanPhamDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -753,7 +768,8 @@ export namespace Prisma {
     Thongbao: 'Thongbao',
     Chude: 'Chude',
     TinNhan: 'TinNhan',
-    BaivietReport: 'BaivietReport'
+    BaivietReport: 'BaivietReport',
+    SanPham: 'SanPham'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -772,7 +788,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "binhluan" | "theodoi" | "baiviet" | "phuongTien" | "yeuthichBaiviet" | "yeuthichPhuongTien" | "thongbao" | "chude" | "tinNhan" | "baivietReport"
+      modelProps: "user" | "binhluan" | "theodoi" | "baiviet" | "phuongTien" | "yeuthichBaiviet" | "yeuthichPhuongTien" | "thongbao" | "chude" | "tinNhan" | "baivietReport" | "sanPham"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1502,6 +1518,72 @@ export namespace Prisma {
           }
         }
       }
+      SanPham: {
+        payload: Prisma.$SanPhamPayload<ExtArgs>
+        fields: Prisma.SanPhamFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SanPhamFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SanPhamFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload>
+          }
+          findFirst: {
+            args: Prisma.SanPhamFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SanPhamFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload>
+          }
+          findMany: {
+            args: Prisma.SanPhamFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload>[]
+          }
+          create: {
+            args: Prisma.SanPhamCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload>
+          }
+          createMany: {
+            args: Prisma.SanPhamCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.SanPhamDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload>
+          }
+          update: {
+            args: Prisma.SanPhamUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload>
+          }
+          deleteMany: {
+            args: Prisma.SanPhamDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SanPhamUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SanPhamUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SanPhamPayload>
+          }
+          aggregate: {
+            args: Prisma.SanPhamAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSanPham>
+          }
+          groupBy: {
+            args: Prisma.SanPhamGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SanPhamGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SanPhamCountArgs<ExtArgs>
+            result: $Utils.Optional<SanPhamCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1597,6 +1679,7 @@ export namespace Prisma {
     chude?: ChudeOmit
     tinNhan?: TinNhanOmit
     baivietReport?: BaivietReportOmit
+    sanPham?: SanPhamOmit
   }
 
   /* Types for Logging */
@@ -1702,6 +1785,7 @@ export namespace Prisma {
     guiTinNhan: number
     nhanTinNhan: number
     baocaobaiviet: number
+    SanPham: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1716,6 +1800,7 @@ export namespace Prisma {
     guiTinNhan?: boolean | UserCountOutputTypeCountGuiTinNhanArgs
     nhanTinNhan?: boolean | UserCountOutputTypeCountNhanTinNhanArgs
     baocaobaiviet?: boolean | UserCountOutputTypeCountBaocaobaivietArgs
+    SanPham?: boolean | UserCountOutputTypeCountSanPhamArgs
   }
 
   // Custom InputTypes
@@ -1804,6 +1889,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBaocaobaivietArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BaivietReportWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSanPhamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SanPhamWhereInput
   }
 
 
@@ -2035,6 +2127,37 @@ export namespace Prisma {
    */
   export type ChudeCountOutputTypeCountBaivietArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BaivietWhereInput
+  }
+
+
+  /**
+   * Count Type SanPhamCountOutputType
+   */
+
+  export type SanPhamCountOutputType = {
+    phuongtien: number
+  }
+
+  export type SanPhamCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    phuongtien?: boolean | SanPhamCountOutputTypeCountPhuongtienArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SanPhamCountOutputType without action
+   */
+  export type SanPhamCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPhamCountOutputType
+     */
+    select?: SanPhamCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SanPhamCountOutputType without action
+   */
+  export type SanPhamCountOutputTypeCountPhuongtienArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PhuongTienWhereInput
   }
 
 
@@ -2299,6 +2422,7 @@ export namespace Prisma {
     guiTinNhan?: boolean | User$guiTinNhanArgs<ExtArgs>
     nhanTinNhan?: boolean | User$nhanTinNhanArgs<ExtArgs>
     baocaobaiviet?: boolean | User$baocaobaivietArgs<ExtArgs>
+    SanPham?: boolean | User$SanPhamArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2331,6 +2455,7 @@ export namespace Prisma {
     guiTinNhan?: boolean | User$guiTinNhanArgs<ExtArgs>
     nhanTinNhan?: boolean | User$nhanTinNhanArgs<ExtArgs>
     baocaobaiviet?: boolean | User$baocaobaivietArgs<ExtArgs>
+    SanPham?: boolean | User$SanPhamArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2348,6 +2473,7 @@ export namespace Prisma {
       guiTinNhan: Prisma.$TinNhanPayload<ExtArgs>[]
       nhanTinNhan: Prisma.$TinNhanPayload<ExtArgs>[]
       baocaobaiviet: Prisma.$BaivietReportPayload<ExtArgs>[]
+      SanPham: Prisma.$SanPhamPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2712,6 +2838,7 @@ export namespace Prisma {
     guiTinNhan<T extends User$guiTinNhanArgs<ExtArgs> = {}>(args?: Subset<T, User$guiTinNhanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TinNhanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     nhanTinNhan<T extends User$nhanTinNhanArgs<ExtArgs> = {}>(args?: Subset<T, User$nhanTinNhanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TinNhanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     baocaobaiviet<T extends User$baocaobaivietArgs<ExtArgs> = {}>(args?: Subset<T, User$baocaobaivietArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BaivietReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    SanPham<T extends User$SanPhamArgs<ExtArgs> = {}>(args?: Subset<T, User$SanPhamArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3355,6 +3482,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BaivietReportScalarFieldEnum | BaivietReportScalarFieldEnum[]
+  }
+
+  /**
+   * User.SanPham
+   */
+  export type User$SanPhamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    where?: SanPhamWhereInput
+    orderBy?: SanPhamOrderByWithRelationInput | SanPhamOrderByWithRelationInput[]
+    cursor?: SanPhamWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SanPhamScalarFieldEnum | SanPhamScalarFieldEnum[]
   }
 
   /**
@@ -6564,11 +6715,13 @@ export namespace Prisma {
   export type PhuongTienAvgAggregateOutputType = {
     id: number | null
     baivietId: number | null
+    sanphamId: number | null
   }
 
   export type PhuongTienSumAggregateOutputType = {
     id: number | null
     baivietId: number | null
+    sanphamId: number | null
   }
 
   export type PhuongTienMinAggregateOutputType = {
@@ -6577,6 +6730,7 @@ export namespace Prisma {
     loai: string | null
     baivietId: number | null
     noidung: string | null
+    sanphamId: number | null
   }
 
   export type PhuongTienMaxAggregateOutputType = {
@@ -6585,6 +6739,7 @@ export namespace Prisma {
     loai: string | null
     baivietId: number | null
     noidung: string | null
+    sanphamId: number | null
   }
 
   export type PhuongTienCountAggregateOutputType = {
@@ -6593,6 +6748,7 @@ export namespace Prisma {
     loai: number
     baivietId: number
     noidung: number
+    sanphamId: number
     _all: number
   }
 
@@ -6600,11 +6756,13 @@ export namespace Prisma {
   export type PhuongTienAvgAggregateInputType = {
     id?: true
     baivietId?: true
+    sanphamId?: true
   }
 
   export type PhuongTienSumAggregateInputType = {
     id?: true
     baivietId?: true
+    sanphamId?: true
   }
 
   export type PhuongTienMinAggregateInputType = {
@@ -6613,6 +6771,7 @@ export namespace Prisma {
     loai?: true
     baivietId?: true
     noidung?: true
+    sanphamId?: true
   }
 
   export type PhuongTienMaxAggregateInputType = {
@@ -6621,6 +6780,7 @@ export namespace Prisma {
     loai?: true
     baivietId?: true
     noidung?: true
+    sanphamId?: true
   }
 
   export type PhuongTienCountAggregateInputType = {
@@ -6629,6 +6789,7 @@ export namespace Prisma {
     loai?: true
     baivietId?: true
     noidung?: true
+    sanphamId?: true
     _all?: true
   }
 
@@ -6724,6 +6885,7 @@ export namespace Prisma {
     loai: string
     baivietId: number
     noidung: string | null
+    sanphamId: number | null
     _count: PhuongTienCountAggregateOutputType | null
     _avg: PhuongTienAvgAggregateOutputType | null
     _sum: PhuongTienSumAggregateOutputType | null
@@ -6751,7 +6913,9 @@ export namespace Prisma {
     loai?: boolean
     baivietId?: boolean
     noidung?: boolean
+    sanphamId?: boolean
     baiviet?: boolean | BaivietDefaultArgs<ExtArgs>
+    sanpham?: boolean | PhuongTien$sanphamArgs<ExtArgs>
     Binhluan?: boolean | PhuongTien$BinhluanArgs<ExtArgs>
     Yeuthich?: boolean | PhuongTien$YeuthichArgs<ExtArgs>
     _count?: boolean | PhuongTienCountOutputTypeDefaultArgs<ExtArgs>
@@ -6765,11 +6929,13 @@ export namespace Prisma {
     loai?: boolean
     baivietId?: boolean
     noidung?: boolean
+    sanphamId?: boolean
   }
 
-  export type PhuongTienOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "loai" | "baivietId" | "noidung", ExtArgs["result"]["phuongTien"]>
+  export type PhuongTienOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "loai" | "baivietId" | "noidung" | "sanphamId", ExtArgs["result"]["phuongTien"]>
   export type PhuongTienInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baiviet?: boolean | BaivietDefaultArgs<ExtArgs>
+    sanpham?: boolean | PhuongTien$sanphamArgs<ExtArgs>
     Binhluan?: boolean | PhuongTien$BinhluanArgs<ExtArgs>
     Yeuthich?: boolean | PhuongTien$YeuthichArgs<ExtArgs>
     _count?: boolean | PhuongTienCountOutputTypeDefaultArgs<ExtArgs>
@@ -6779,6 +6945,7 @@ export namespace Prisma {
     name: "PhuongTien"
     objects: {
       baiviet: Prisma.$BaivietPayload<ExtArgs>
+      sanpham: Prisma.$SanPhamPayload<ExtArgs> | null
       Binhluan: Prisma.$BinhluanPayload<ExtArgs>[]
       Yeuthich: Prisma.$YeuthichPhuongTienPayload<ExtArgs>[]
     }
@@ -6788,6 +6955,7 @@ export namespace Prisma {
       loai: string
       baivietId: number
       noidung: string | null
+      sanphamId: number | null
     }, ExtArgs["result"]["phuongTien"]>
     composites: {}
   }
@@ -7129,6 +7297,7 @@ export namespace Prisma {
   export interface Prisma__PhuongTienClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     baiviet<T extends BaivietDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BaivietDefaultArgs<ExtArgs>>): Prisma__BaivietClient<$Result.GetResult<Prisma.$BaivietPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sanpham<T extends PhuongTien$sanphamArgs<ExtArgs> = {}>(args?: Subset<T, PhuongTien$sanphamArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     Binhluan<T extends PhuongTien$BinhluanArgs<ExtArgs> = {}>(args?: Subset<T, PhuongTien$BinhluanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BinhluanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Yeuthich<T extends PhuongTien$YeuthichArgs<ExtArgs> = {}>(args?: Subset<T, PhuongTien$YeuthichArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YeuthichPhuongTienPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7165,6 +7334,7 @@ export namespace Prisma {
     readonly loai: FieldRef<"PhuongTien", 'String'>
     readonly baivietId: FieldRef<"PhuongTien", 'Int'>
     readonly noidung: FieldRef<"PhuongTien", 'String'>
+    readonly sanphamId: FieldRef<"PhuongTien", 'Int'>
   }
     
 
@@ -7504,6 +7674,25 @@ export namespace Prisma {
      * Limit how many PhuongTiens to delete.
      */
     limit?: number
+  }
+
+  /**
+   * PhuongTien.sanpham
+   */
+  export type PhuongTien$sanphamArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    where?: SanPhamWhereInput
   }
 
   /**
@@ -9579,6 +9768,7 @@ export namespace Prisma {
     binhluanID: number | null
     yeuthichAnhID: number | null
     yeuthichBaiID: number | null
+    yeuthichBinhLuanID: number | null
   }
 
   export type ThongbaoSumAggregateOutputType = {
@@ -9589,6 +9779,7 @@ export namespace Prisma {
     binhluanID: number | null
     yeuthichAnhID: number | null
     yeuthichBaiID: number | null
+    yeuthichBinhLuanID: number | null
   }
 
   export type ThongbaoMinAggregateOutputType = {
@@ -9600,6 +9791,7 @@ export namespace Prisma {
     binhluanID: number | null
     yeuthichAnhID: number | null
     yeuthichBaiID: number | null
+    yeuthichBinhLuanID: number | null
     loai: string | null
     ngaytao: Date | null
     ngaycapnhat: Date | null
@@ -9615,6 +9807,7 @@ export namespace Prisma {
     binhluanID: number | null
     yeuthichAnhID: number | null
     yeuthichBaiID: number | null
+    yeuthichBinhLuanID: number | null
     loai: string | null
     ngaytao: Date | null
     ngaycapnhat: Date | null
@@ -9630,6 +9823,7 @@ export namespace Prisma {
     binhluanID: number
     yeuthichAnhID: number
     yeuthichBaiID: number
+    yeuthichBinhLuanID: number
     loai: number
     ngaytao: number
     ngaycapnhat: number
@@ -9646,6 +9840,7 @@ export namespace Prisma {
     binhluanID?: true
     yeuthichAnhID?: true
     yeuthichBaiID?: true
+    yeuthichBinhLuanID?: true
   }
 
   export type ThongbaoSumAggregateInputType = {
@@ -9656,6 +9851,7 @@ export namespace Prisma {
     binhluanID?: true
     yeuthichAnhID?: true
     yeuthichBaiID?: true
+    yeuthichBinhLuanID?: true
   }
 
   export type ThongbaoMinAggregateInputType = {
@@ -9667,6 +9863,7 @@ export namespace Prisma {
     binhluanID?: true
     yeuthichAnhID?: true
     yeuthichBaiID?: true
+    yeuthichBinhLuanID?: true
     loai?: true
     ngaytao?: true
     ngaycapnhat?: true
@@ -9682,6 +9879,7 @@ export namespace Prisma {
     binhluanID?: true
     yeuthichAnhID?: true
     yeuthichBaiID?: true
+    yeuthichBinhLuanID?: true
     loai?: true
     ngaytao?: true
     ngaycapnhat?: true
@@ -9697,6 +9895,7 @@ export namespace Prisma {
     binhluanID?: true
     yeuthichAnhID?: true
     yeuthichBaiID?: true
+    yeuthichBinhLuanID?: true
     loai?: true
     ngaytao?: true
     ngaycapnhat?: true
@@ -9799,6 +9998,7 @@ export namespace Prisma {
     binhluanID: number | null
     yeuthichAnhID: number | null
     yeuthichBaiID: number | null
+    yeuthichBinhLuanID: number | null
     loai: string | null
     ngaytao: Date
     ngaycapnhat: Date
@@ -9833,6 +10033,7 @@ export namespace Prisma {
     binhluanID?: boolean
     yeuthichAnhID?: boolean
     yeuthichBaiID?: boolean
+    yeuthichBinhLuanID?: boolean
     loai?: boolean
     ngaytao?: boolean
     ngaycapnhat?: boolean
@@ -9856,13 +10057,14 @@ export namespace Prisma {
     binhluanID?: boolean
     yeuthichAnhID?: boolean
     yeuthichBaiID?: boolean
+    yeuthichBinhLuanID?: boolean
     loai?: boolean
     ngaytao?: boolean
     ngaycapnhat?: boolean
     daXem?: boolean
   }
 
-  export type ThongbaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nguoidungID" | "nguoitaoID" | "noidung" | "baivietID" | "binhluanID" | "yeuthichAnhID" | "yeuthichBaiID" | "loai" | "ngaytao" | "ngaycapnhat" | "daXem", ExtArgs["result"]["thongbao"]>
+  export type ThongbaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nguoidungID" | "nguoitaoID" | "noidung" | "baivietID" | "binhluanID" | "yeuthichAnhID" | "yeuthichBaiID" | "yeuthichBinhLuanID" | "loai" | "ngaytao" | "ngaycapnhat" | "daXem", ExtArgs["result"]["thongbao"]>
   export type ThongbaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     baiviet?: boolean | Thongbao$baivietArgs<ExtArgs>
     binhluan?: boolean | Thongbao$binhluanArgs<ExtArgs>
@@ -9891,6 +10093,7 @@ export namespace Prisma {
       binhluanID: number | null
       yeuthichAnhID: number | null
       yeuthichBaiID: number | null
+      yeuthichBinhLuanID: number | null
       loai: string | null
       ngaytao: Date
       ngaycapnhat: Date
@@ -10278,6 +10481,7 @@ export namespace Prisma {
     readonly binhluanID: FieldRef<"Thongbao", 'Int'>
     readonly yeuthichAnhID: FieldRef<"Thongbao", 'Int'>
     readonly yeuthichBaiID: FieldRef<"Thongbao", 'Int'>
+    readonly yeuthichBinhLuanID: FieldRef<"Thongbao", 'Int'>
     readonly loai: FieldRef<"Thongbao", 'String'>
     readonly ngaytao: FieldRef<"Thongbao", 'DateTime'>
     readonly ngaycapnhat: FieldRef<"Thongbao", 'DateTime'>
@@ -13625,6 +13829,1065 @@ export namespace Prisma {
 
 
   /**
+   * Model SanPham
+   */
+
+  export type AggregateSanPham = {
+    _count: SanPhamCountAggregateOutputType | null
+    _avg: SanPhamAvgAggregateOutputType | null
+    _sum: SanPhamSumAggregateOutputType | null
+    _min: SanPhamMinAggregateOutputType | null
+    _max: SanPhamMaxAggregateOutputType | null
+  }
+
+  export type SanPhamAvgAggregateOutputType = {
+    id: number | null
+    gia: Decimal | null
+    loaiID: number | null
+    nguoibanID: number | null
+  }
+
+  export type SanPhamSumAggregateOutputType = {
+    id: number | null
+    gia: Decimal | null
+    loaiID: number | null
+    nguoibanID: number | null
+  }
+
+  export type SanPhamMinAggregateOutputType = {
+    id: number | null
+    ten: string | null
+    mota: string | null
+    gia: Decimal | null
+    hinhanh: string | null
+    loaiID: number | null
+    nguoibanID: number | null
+    ngaytao: Date | null
+    ngaycapnhat: Date | null
+    trangthai: string | null
+  }
+
+  export type SanPhamMaxAggregateOutputType = {
+    id: number | null
+    ten: string | null
+    mota: string | null
+    gia: Decimal | null
+    hinhanh: string | null
+    loaiID: number | null
+    nguoibanID: number | null
+    ngaytao: Date | null
+    ngaycapnhat: Date | null
+    trangthai: string | null
+  }
+
+  export type SanPhamCountAggregateOutputType = {
+    id: number
+    ten: number
+    mota: number
+    gia: number
+    hinhanh: number
+    loaiID: number
+    nguoibanID: number
+    ngaytao: number
+    ngaycapnhat: number
+    trangthai: number
+    _all: number
+  }
+
+
+  export type SanPhamAvgAggregateInputType = {
+    id?: true
+    gia?: true
+    loaiID?: true
+    nguoibanID?: true
+  }
+
+  export type SanPhamSumAggregateInputType = {
+    id?: true
+    gia?: true
+    loaiID?: true
+    nguoibanID?: true
+  }
+
+  export type SanPhamMinAggregateInputType = {
+    id?: true
+    ten?: true
+    mota?: true
+    gia?: true
+    hinhanh?: true
+    loaiID?: true
+    nguoibanID?: true
+    ngaytao?: true
+    ngaycapnhat?: true
+    trangthai?: true
+  }
+
+  export type SanPhamMaxAggregateInputType = {
+    id?: true
+    ten?: true
+    mota?: true
+    gia?: true
+    hinhanh?: true
+    loaiID?: true
+    nguoibanID?: true
+    ngaytao?: true
+    ngaycapnhat?: true
+    trangthai?: true
+  }
+
+  export type SanPhamCountAggregateInputType = {
+    id?: true
+    ten?: true
+    mota?: true
+    gia?: true
+    hinhanh?: true
+    loaiID?: true
+    nguoibanID?: true
+    ngaytao?: true
+    ngaycapnhat?: true
+    trangthai?: true
+    _all?: true
+  }
+
+  export type SanPhamAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SanPham to aggregate.
+     */
+    where?: SanPhamWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SanPhams to fetch.
+     */
+    orderBy?: SanPhamOrderByWithRelationInput | SanPhamOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SanPhamWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SanPhams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SanPhams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SanPhams
+    **/
+    _count?: true | SanPhamCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SanPhamAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SanPhamSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SanPhamMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SanPhamMaxAggregateInputType
+  }
+
+  export type GetSanPhamAggregateType<T extends SanPhamAggregateArgs> = {
+        [P in keyof T & keyof AggregateSanPham]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSanPham[P]>
+      : GetScalarType<T[P], AggregateSanPham[P]>
+  }
+
+
+
+
+  export type SanPhamGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SanPhamWhereInput
+    orderBy?: SanPhamOrderByWithAggregationInput | SanPhamOrderByWithAggregationInput[]
+    by: SanPhamScalarFieldEnum[] | SanPhamScalarFieldEnum
+    having?: SanPhamScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SanPhamCountAggregateInputType | true
+    _avg?: SanPhamAvgAggregateInputType
+    _sum?: SanPhamSumAggregateInputType
+    _min?: SanPhamMinAggregateInputType
+    _max?: SanPhamMaxAggregateInputType
+  }
+
+  export type SanPhamGroupByOutputType = {
+    id: number
+    ten: string
+    mota: string | null
+    gia: Decimal
+    hinhanh: string | null
+    loaiID: number
+    nguoibanID: number
+    ngaytao: Date
+    ngaycapnhat: Date
+    trangthai: string
+    _count: SanPhamCountAggregateOutputType | null
+    _avg: SanPhamAvgAggregateOutputType | null
+    _sum: SanPhamSumAggregateOutputType | null
+    _min: SanPhamMinAggregateOutputType | null
+    _max: SanPhamMaxAggregateOutputType | null
+  }
+
+  type GetSanPhamGroupByPayload<T extends SanPhamGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SanPhamGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SanPhamGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SanPhamGroupByOutputType[P]>
+            : GetScalarType<T[P], SanPhamGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SanPhamSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ten?: boolean
+    mota?: boolean
+    gia?: boolean
+    hinhanh?: boolean
+    loaiID?: boolean
+    nguoibanID?: boolean
+    ngaytao?: boolean
+    ngaycapnhat?: boolean
+    trangthai?: boolean
+    nguoiban?: boolean | UserDefaultArgs<ExtArgs>
+    phuongtien?: boolean | SanPham$phuongtienArgs<ExtArgs>
+    _count?: boolean | SanPhamCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sanPham"]>
+
+
+
+  export type SanPhamSelectScalar = {
+    id?: boolean
+    ten?: boolean
+    mota?: boolean
+    gia?: boolean
+    hinhanh?: boolean
+    loaiID?: boolean
+    nguoibanID?: boolean
+    ngaytao?: boolean
+    ngaycapnhat?: boolean
+    trangthai?: boolean
+  }
+
+  export type SanPhamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ten" | "mota" | "gia" | "hinhanh" | "loaiID" | "nguoibanID" | "ngaytao" | "ngaycapnhat" | "trangthai", ExtArgs["result"]["sanPham"]>
+  export type SanPhamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    nguoiban?: boolean | UserDefaultArgs<ExtArgs>
+    phuongtien?: boolean | SanPham$phuongtienArgs<ExtArgs>
+    _count?: boolean | SanPhamCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $SanPhamPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SanPham"
+    objects: {
+      nguoiban: Prisma.$UserPayload<ExtArgs>
+      phuongtien: Prisma.$PhuongTienPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      ten: string
+      mota: string | null
+      gia: Prisma.Decimal
+      hinhanh: string | null
+      loaiID: number
+      nguoibanID: number
+      ngaytao: Date
+      ngaycapnhat: Date
+      trangthai: string
+    }, ExtArgs["result"]["sanPham"]>
+    composites: {}
+  }
+
+  type SanPhamGetPayload<S extends boolean | null | undefined | SanPhamDefaultArgs> = $Result.GetResult<Prisma.$SanPhamPayload, S>
+
+  type SanPhamCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SanPhamFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SanPhamCountAggregateInputType | true
+    }
+
+  export interface SanPhamDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SanPham'], meta: { name: 'SanPham' } }
+    /**
+     * Find zero or one SanPham that matches the filter.
+     * @param {SanPhamFindUniqueArgs} args - Arguments to find a SanPham
+     * @example
+     * // Get one SanPham
+     * const sanPham = await prisma.sanPham.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SanPhamFindUniqueArgs>(args: SelectSubset<T, SanPhamFindUniqueArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SanPham that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SanPhamFindUniqueOrThrowArgs} args - Arguments to find a SanPham
+     * @example
+     * // Get one SanPham
+     * const sanPham = await prisma.sanPham.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SanPhamFindUniqueOrThrowArgs>(args: SelectSubset<T, SanPhamFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SanPham that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SanPhamFindFirstArgs} args - Arguments to find a SanPham
+     * @example
+     * // Get one SanPham
+     * const sanPham = await prisma.sanPham.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SanPhamFindFirstArgs>(args?: SelectSubset<T, SanPhamFindFirstArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SanPham that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SanPhamFindFirstOrThrowArgs} args - Arguments to find a SanPham
+     * @example
+     * // Get one SanPham
+     * const sanPham = await prisma.sanPham.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SanPhamFindFirstOrThrowArgs>(args?: SelectSubset<T, SanPhamFindFirstOrThrowArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SanPhams that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SanPhamFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SanPhams
+     * const sanPhams = await prisma.sanPham.findMany()
+     * 
+     * // Get first 10 SanPhams
+     * const sanPhams = await prisma.sanPham.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sanPhamWithIdOnly = await prisma.sanPham.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SanPhamFindManyArgs>(args?: SelectSubset<T, SanPhamFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SanPham.
+     * @param {SanPhamCreateArgs} args - Arguments to create a SanPham.
+     * @example
+     * // Create one SanPham
+     * const SanPham = await prisma.sanPham.create({
+     *   data: {
+     *     // ... data to create a SanPham
+     *   }
+     * })
+     * 
+     */
+    create<T extends SanPhamCreateArgs>(args: SelectSubset<T, SanPhamCreateArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SanPhams.
+     * @param {SanPhamCreateManyArgs} args - Arguments to create many SanPhams.
+     * @example
+     * // Create many SanPhams
+     * const sanPham = await prisma.sanPham.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SanPhamCreateManyArgs>(args?: SelectSubset<T, SanPhamCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a SanPham.
+     * @param {SanPhamDeleteArgs} args - Arguments to delete one SanPham.
+     * @example
+     * // Delete one SanPham
+     * const SanPham = await prisma.sanPham.delete({
+     *   where: {
+     *     // ... filter to delete one SanPham
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SanPhamDeleteArgs>(args: SelectSubset<T, SanPhamDeleteArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SanPham.
+     * @param {SanPhamUpdateArgs} args - Arguments to update one SanPham.
+     * @example
+     * // Update one SanPham
+     * const sanPham = await prisma.sanPham.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SanPhamUpdateArgs>(args: SelectSubset<T, SanPhamUpdateArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SanPhams.
+     * @param {SanPhamDeleteManyArgs} args - Arguments to filter SanPhams to delete.
+     * @example
+     * // Delete a few SanPhams
+     * const { count } = await prisma.sanPham.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SanPhamDeleteManyArgs>(args?: SelectSubset<T, SanPhamDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SanPhams.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SanPhamUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SanPhams
+     * const sanPham = await prisma.sanPham.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SanPhamUpdateManyArgs>(args: SelectSubset<T, SanPhamUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one SanPham.
+     * @param {SanPhamUpsertArgs} args - Arguments to update or create a SanPham.
+     * @example
+     * // Update or create a SanPham
+     * const sanPham = await prisma.sanPham.upsert({
+     *   create: {
+     *     // ... data to create a SanPham
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SanPham we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SanPhamUpsertArgs>(args: SelectSubset<T, SanPhamUpsertArgs<ExtArgs>>): Prisma__SanPhamClient<$Result.GetResult<Prisma.$SanPhamPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SanPhams.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SanPhamCountArgs} args - Arguments to filter SanPhams to count.
+     * @example
+     * // Count the number of SanPhams
+     * const count = await prisma.sanPham.count({
+     *   where: {
+     *     // ... the filter for the SanPhams we want to count
+     *   }
+     * })
+    **/
+    count<T extends SanPhamCountArgs>(
+      args?: Subset<T, SanPhamCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SanPhamCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SanPham.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SanPhamAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SanPhamAggregateArgs>(args: Subset<T, SanPhamAggregateArgs>): Prisma.PrismaPromise<GetSanPhamAggregateType<T>>
+
+    /**
+     * Group by SanPham.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SanPhamGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SanPhamGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SanPhamGroupByArgs['orderBy'] }
+        : { orderBy?: SanPhamGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SanPhamGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSanPhamGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SanPham model
+   */
+  readonly fields: SanPhamFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SanPham.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SanPhamClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    nguoiban<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    phuongtien<T extends SanPham$phuongtienArgs<ExtArgs> = {}>(args?: Subset<T, SanPham$phuongtienArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PhuongTienPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SanPham model
+   */
+  interface SanPhamFieldRefs {
+    readonly id: FieldRef<"SanPham", 'Int'>
+    readonly ten: FieldRef<"SanPham", 'String'>
+    readonly mota: FieldRef<"SanPham", 'String'>
+    readonly gia: FieldRef<"SanPham", 'Decimal'>
+    readonly hinhanh: FieldRef<"SanPham", 'String'>
+    readonly loaiID: FieldRef<"SanPham", 'Int'>
+    readonly nguoibanID: FieldRef<"SanPham", 'Int'>
+    readonly ngaytao: FieldRef<"SanPham", 'DateTime'>
+    readonly ngaycapnhat: FieldRef<"SanPham", 'DateTime'>
+    readonly trangthai: FieldRef<"SanPham", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SanPham findUnique
+   */
+  export type SanPhamFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * Filter, which SanPham to fetch.
+     */
+    where: SanPhamWhereUniqueInput
+  }
+
+  /**
+   * SanPham findUniqueOrThrow
+   */
+  export type SanPhamFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * Filter, which SanPham to fetch.
+     */
+    where: SanPhamWhereUniqueInput
+  }
+
+  /**
+   * SanPham findFirst
+   */
+  export type SanPhamFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * Filter, which SanPham to fetch.
+     */
+    where?: SanPhamWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SanPhams to fetch.
+     */
+    orderBy?: SanPhamOrderByWithRelationInput | SanPhamOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SanPhams.
+     */
+    cursor?: SanPhamWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SanPhams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SanPhams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SanPhams.
+     */
+    distinct?: SanPhamScalarFieldEnum | SanPhamScalarFieldEnum[]
+  }
+
+  /**
+   * SanPham findFirstOrThrow
+   */
+  export type SanPhamFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * Filter, which SanPham to fetch.
+     */
+    where?: SanPhamWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SanPhams to fetch.
+     */
+    orderBy?: SanPhamOrderByWithRelationInput | SanPhamOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SanPhams.
+     */
+    cursor?: SanPhamWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SanPhams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SanPhams.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SanPhams.
+     */
+    distinct?: SanPhamScalarFieldEnum | SanPhamScalarFieldEnum[]
+  }
+
+  /**
+   * SanPham findMany
+   */
+  export type SanPhamFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * Filter, which SanPhams to fetch.
+     */
+    where?: SanPhamWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SanPhams to fetch.
+     */
+    orderBy?: SanPhamOrderByWithRelationInput | SanPhamOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SanPhams.
+     */
+    cursor?: SanPhamWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SanPhams from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SanPhams.
+     */
+    skip?: number
+    distinct?: SanPhamScalarFieldEnum | SanPhamScalarFieldEnum[]
+  }
+
+  /**
+   * SanPham create
+   */
+  export type SanPhamCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SanPham.
+     */
+    data: XOR<SanPhamCreateInput, SanPhamUncheckedCreateInput>
+  }
+
+  /**
+   * SanPham createMany
+   */
+  export type SanPhamCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SanPhams.
+     */
+    data: SanPhamCreateManyInput | SanPhamCreateManyInput[]
+  }
+
+  /**
+   * SanPham update
+   */
+  export type SanPhamUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SanPham.
+     */
+    data: XOR<SanPhamUpdateInput, SanPhamUncheckedUpdateInput>
+    /**
+     * Choose, which SanPham to update.
+     */
+    where: SanPhamWhereUniqueInput
+  }
+
+  /**
+   * SanPham updateMany
+   */
+  export type SanPhamUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SanPhams.
+     */
+    data: XOR<SanPhamUpdateManyMutationInput, SanPhamUncheckedUpdateManyInput>
+    /**
+     * Filter which SanPhams to update
+     */
+    where?: SanPhamWhereInput
+    /**
+     * Limit how many SanPhams to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SanPham upsert
+   */
+  export type SanPhamUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SanPham to update in case it exists.
+     */
+    where: SanPhamWhereUniqueInput
+    /**
+     * In case the SanPham found by the `where` argument doesn't exist, create a new SanPham with this data.
+     */
+    create: XOR<SanPhamCreateInput, SanPhamUncheckedCreateInput>
+    /**
+     * In case the SanPham was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SanPhamUpdateInput, SanPhamUncheckedUpdateInput>
+  }
+
+  /**
+   * SanPham delete
+   */
+  export type SanPhamDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+    /**
+     * Filter which SanPham to delete.
+     */
+    where: SanPhamWhereUniqueInput
+  }
+
+  /**
+   * SanPham deleteMany
+   */
+  export type SanPhamDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SanPhams to delete
+     */
+    where?: SanPhamWhereInput
+    /**
+     * Limit how many SanPhams to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SanPham.phuongtien
+   */
+  export type SanPham$phuongtienArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PhuongTien
+     */
+    select?: PhuongTienSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PhuongTien
+     */
+    omit?: PhuongTienOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PhuongTienInclude<ExtArgs> | null
+    where?: PhuongTienWhereInput
+    orderBy?: PhuongTienOrderByWithRelationInput | PhuongTienOrderByWithRelationInput[]
+    cursor?: PhuongTienWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PhuongTienScalarFieldEnum | PhuongTienScalarFieldEnum[]
+  }
+
+  /**
+   * SanPham without action
+   */
+  export type SanPhamDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SanPham
+     */
+    select?: SanPhamSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SanPham
+     */
+    omit?: SanPhamOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SanPhamInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13697,7 +14960,8 @@ export namespace Prisma {
     url: 'url',
     loai: 'loai',
     baivietId: 'baivietId',
-    noidung: 'noidung'
+    noidung: 'noidung',
+    sanphamId: 'sanphamId'
   };
 
   export type PhuongTienScalarFieldEnum = (typeof PhuongTienScalarFieldEnum)[keyof typeof PhuongTienScalarFieldEnum]
@@ -13732,6 +14996,7 @@ export namespace Prisma {
     binhluanID: 'binhluanID',
     yeuthichAnhID: 'yeuthichAnhID',
     yeuthichBaiID: 'yeuthichBaiID',
+    yeuthichBinhLuanID: 'yeuthichBinhLuanID',
     loai: 'loai',
     ngaytao: 'ngaytao',
     ngaycapnhat: 'ngaycapnhat',
@@ -13770,6 +15035,22 @@ export namespace Prisma {
   };
 
   export type BaivietReportScalarFieldEnum = (typeof BaivietReportScalarFieldEnum)[keyof typeof BaivietReportScalarFieldEnum]
+
+
+  export const SanPhamScalarFieldEnum: {
+    id: 'id',
+    ten: 'ten',
+    mota: 'mota',
+    gia: 'gia',
+    hinhanh: 'hinhanh',
+    loaiID: 'loaiID',
+    nguoibanID: 'nguoibanID',
+    ngaytao: 'ngaytao',
+    ngaycapnhat: 'ngaycapnhat',
+    trangthai: 'trangthai'
+  };
+
+  export type SanPhamScalarFieldEnum = (typeof SanPhamScalarFieldEnum)[keyof typeof SanPhamScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13822,6 +15103,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -13857,6 +15145,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanListRelationFilter
     nhanTinNhan?: TinNhanListRelationFilter
     baocaobaiviet?: BaivietReportListRelationFilter
+    SanPham?: SanPhamListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13882,6 +15171,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanOrderByRelationAggregateInput
     nhanTinNhan?: TinNhanOrderByRelationAggregateInput
     baocaobaiviet?: BaivietReportOrderByRelationAggregateInput
+    SanPham?: SanPhamOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -13910,6 +15200,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanListRelationFilter
     nhanTinNhan?: TinNhanListRelationFilter
     baocaobaiviet?: BaivietReportListRelationFilter
+    SanPham?: SanPhamListRelationFilter
   }, "id" | "email" | "username" | "clerkId">
 
   export type UserOrderByWithAggregationInput = {
@@ -14174,7 +15465,9 @@ export namespace Prisma {
     loai?: StringFilter<"PhuongTien"> | string
     baivietId?: IntFilter<"PhuongTien"> | number
     noidung?: StringNullableFilter<"PhuongTien"> | string | null
+    sanphamId?: IntNullableFilter<"PhuongTien"> | number | null
     baiviet?: XOR<BaivietScalarRelationFilter, BaivietWhereInput>
+    sanpham?: XOR<SanPhamNullableScalarRelationFilter, SanPhamWhereInput> | null
     Binhluan?: BinhluanListRelationFilter
     Yeuthich?: YeuthichPhuongTienListRelationFilter
   }
@@ -14185,7 +15478,9 @@ export namespace Prisma {
     loai?: SortOrder
     baivietId?: SortOrder
     noidung?: SortOrderInput | SortOrder
+    sanphamId?: SortOrderInput | SortOrder
     baiviet?: BaivietOrderByWithRelationInput
+    sanpham?: SanPhamOrderByWithRelationInput
     Binhluan?: BinhluanOrderByRelationAggregateInput
     Yeuthich?: YeuthichPhuongTienOrderByRelationAggregateInput
   }
@@ -14199,7 +15494,9 @@ export namespace Prisma {
     loai?: StringFilter<"PhuongTien"> | string
     baivietId?: IntFilter<"PhuongTien"> | number
     noidung?: StringNullableFilter<"PhuongTien"> | string | null
+    sanphamId?: IntNullableFilter<"PhuongTien"> | number | null
     baiviet?: XOR<BaivietScalarRelationFilter, BaivietWhereInput>
+    sanpham?: XOR<SanPhamNullableScalarRelationFilter, SanPhamWhereInput> | null
     Binhluan?: BinhluanListRelationFilter
     Yeuthich?: YeuthichPhuongTienListRelationFilter
   }, "id">
@@ -14210,6 +15507,7 @@ export namespace Prisma {
     loai?: SortOrder
     baivietId?: SortOrder
     noidung?: SortOrderInput | SortOrder
+    sanphamId?: SortOrderInput | SortOrder
     _count?: PhuongTienCountOrderByAggregateInput
     _avg?: PhuongTienAvgOrderByAggregateInput
     _max?: PhuongTienMaxOrderByAggregateInput
@@ -14226,6 +15524,7 @@ export namespace Prisma {
     loai?: StringWithAggregatesFilter<"PhuongTien"> | string
     baivietId?: IntWithAggregatesFilter<"PhuongTien"> | number
     noidung?: StringNullableWithAggregatesFilter<"PhuongTien"> | string | null
+    sanphamId?: IntNullableWithAggregatesFilter<"PhuongTien"> | number | null
   }
 
   export type YeuthichBaivietWhereInput = {
@@ -14358,6 +15657,7 @@ export namespace Prisma {
     binhluanID?: IntNullableFilter<"Thongbao"> | number | null
     yeuthichAnhID?: IntNullableFilter<"Thongbao"> | number | null
     yeuthichBaiID?: IntNullableFilter<"Thongbao"> | number | null
+    yeuthichBinhLuanID?: IntNullableFilter<"Thongbao"> | number | null
     loai?: StringNullableFilter<"Thongbao"> | string | null
     ngaytao?: DateTimeFilter<"Thongbao"> | Date | string
     ngaycapnhat?: DateTimeFilter<"Thongbao"> | Date | string
@@ -14379,6 +15679,7 @@ export namespace Prisma {
     binhluanID?: SortOrderInput | SortOrder
     yeuthichAnhID?: SortOrderInput | SortOrder
     yeuthichBaiID?: SortOrderInput | SortOrder
+    yeuthichBinhLuanID?: SortOrderInput | SortOrder
     loai?: SortOrderInput | SortOrder
     ngaytao?: SortOrder
     ngaycapnhat?: SortOrder
@@ -14403,6 +15704,7 @@ export namespace Prisma {
     binhluanID?: IntNullableFilter<"Thongbao"> | number | null
     yeuthichAnhID?: IntNullableFilter<"Thongbao"> | number | null
     yeuthichBaiID?: IntNullableFilter<"Thongbao"> | number | null
+    yeuthichBinhLuanID?: IntNullableFilter<"Thongbao"> | number | null
     loai?: StringNullableFilter<"Thongbao"> | string | null
     ngaytao?: DateTimeFilter<"Thongbao"> | Date | string
     ngaycapnhat?: DateTimeFilter<"Thongbao"> | Date | string
@@ -14424,6 +15726,7 @@ export namespace Prisma {
     binhluanID?: SortOrderInput | SortOrder
     yeuthichAnhID?: SortOrderInput | SortOrder
     yeuthichBaiID?: SortOrderInput | SortOrder
+    yeuthichBinhLuanID?: SortOrderInput | SortOrder
     loai?: SortOrderInput | SortOrder
     ngaytao?: SortOrder
     ngaycapnhat?: SortOrder
@@ -14447,6 +15750,7 @@ export namespace Prisma {
     binhluanID?: IntNullableWithAggregatesFilter<"Thongbao"> | number | null
     yeuthichAnhID?: IntNullableWithAggregatesFilter<"Thongbao"> | number | null
     yeuthichBaiID?: IntNullableWithAggregatesFilter<"Thongbao"> | number | null
+    yeuthichBinhLuanID?: IntNullableWithAggregatesFilter<"Thongbao"> | number | null
     loai?: StringNullableWithAggregatesFilter<"Thongbao"> | string | null
     ngaytao?: DateTimeWithAggregatesFilter<"Thongbao"> | Date | string
     ngaycapnhat?: DateTimeWithAggregatesFilter<"Thongbao"> | Date | string
@@ -14620,6 +15924,91 @@ export namespace Prisma {
     ngaybaocao?: DateTimeWithAggregatesFilter<"BaivietReport"> | Date | string
   }
 
+  export type SanPhamWhereInput = {
+    AND?: SanPhamWhereInput | SanPhamWhereInput[]
+    OR?: SanPhamWhereInput[]
+    NOT?: SanPhamWhereInput | SanPhamWhereInput[]
+    id?: IntFilter<"SanPham"> | number
+    ten?: StringFilter<"SanPham"> | string
+    mota?: StringNullableFilter<"SanPham"> | string | null
+    gia?: DecimalFilter<"SanPham"> | Decimal | DecimalJsLike | number | string
+    hinhanh?: StringNullableFilter<"SanPham"> | string | null
+    loaiID?: IntFilter<"SanPham"> | number
+    nguoibanID?: IntFilter<"SanPham"> | number
+    ngaytao?: DateTimeFilter<"SanPham"> | Date | string
+    ngaycapnhat?: DateTimeFilter<"SanPham"> | Date | string
+    trangthai?: StringFilter<"SanPham"> | string
+    nguoiban?: XOR<UserScalarRelationFilter, UserWhereInput>
+    phuongtien?: PhuongTienListRelationFilter
+  }
+
+  export type SanPhamOrderByWithRelationInput = {
+    id?: SortOrder
+    ten?: SortOrder
+    mota?: SortOrderInput | SortOrder
+    gia?: SortOrder
+    hinhanh?: SortOrderInput | SortOrder
+    loaiID?: SortOrder
+    nguoibanID?: SortOrder
+    ngaytao?: SortOrder
+    ngaycapnhat?: SortOrder
+    trangthai?: SortOrder
+    nguoiban?: UserOrderByWithRelationInput
+    phuongtien?: PhuongTienOrderByRelationAggregateInput
+  }
+
+  export type SanPhamWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: SanPhamWhereInput | SanPhamWhereInput[]
+    OR?: SanPhamWhereInput[]
+    NOT?: SanPhamWhereInput | SanPhamWhereInput[]
+    ten?: StringFilter<"SanPham"> | string
+    mota?: StringNullableFilter<"SanPham"> | string | null
+    gia?: DecimalFilter<"SanPham"> | Decimal | DecimalJsLike | number | string
+    hinhanh?: StringNullableFilter<"SanPham"> | string | null
+    loaiID?: IntFilter<"SanPham"> | number
+    nguoibanID?: IntFilter<"SanPham"> | number
+    ngaytao?: DateTimeFilter<"SanPham"> | Date | string
+    ngaycapnhat?: DateTimeFilter<"SanPham"> | Date | string
+    trangthai?: StringFilter<"SanPham"> | string
+    nguoiban?: XOR<UserScalarRelationFilter, UserWhereInput>
+    phuongtien?: PhuongTienListRelationFilter
+  }, "id">
+
+  export type SanPhamOrderByWithAggregationInput = {
+    id?: SortOrder
+    ten?: SortOrder
+    mota?: SortOrderInput | SortOrder
+    gia?: SortOrder
+    hinhanh?: SortOrderInput | SortOrder
+    loaiID?: SortOrder
+    nguoibanID?: SortOrder
+    ngaytao?: SortOrder
+    ngaycapnhat?: SortOrder
+    trangthai?: SortOrder
+    _count?: SanPhamCountOrderByAggregateInput
+    _avg?: SanPhamAvgOrderByAggregateInput
+    _max?: SanPhamMaxOrderByAggregateInput
+    _min?: SanPhamMinOrderByAggregateInput
+    _sum?: SanPhamSumOrderByAggregateInput
+  }
+
+  export type SanPhamScalarWhereWithAggregatesInput = {
+    AND?: SanPhamScalarWhereWithAggregatesInput | SanPhamScalarWhereWithAggregatesInput[]
+    OR?: SanPhamScalarWhereWithAggregatesInput[]
+    NOT?: SanPhamScalarWhereWithAggregatesInput | SanPhamScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SanPham"> | number
+    ten?: StringWithAggregatesFilter<"SanPham"> | string
+    mota?: StringNullableWithAggregatesFilter<"SanPham"> | string | null
+    gia?: DecimalWithAggregatesFilter<"SanPham"> | Decimal | DecimalJsLike | number | string
+    hinhanh?: StringNullableWithAggregatesFilter<"SanPham"> | string | null
+    loaiID?: IntWithAggregatesFilter<"SanPham"> | number
+    nguoibanID?: IntWithAggregatesFilter<"SanPham"> | number
+    ngaytao?: DateTimeWithAggregatesFilter<"SanPham"> | Date | string
+    ngaycapnhat?: DateTimeWithAggregatesFilter<"SanPham"> | Date | string
+    trangthai?: StringWithAggregatesFilter<"SanPham"> | string
+  }
+
   export type UserCreateInput = {
     email: string
     username: string
@@ -14642,6 +16031,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -14667,6 +16057,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUpdateInput = {
@@ -14691,6 +16082,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -14716,6 +16108,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14957,6 +16350,7 @@ export namespace Prisma {
     loai: string
     noidung?: string | null
     baiviet: BaivietCreateNestedOneWithoutPhuongtienInput
+    sanpham?: SanPhamCreateNestedOneWithoutPhuongtienInput
     Binhluan?: BinhluanCreateNestedManyWithoutPhuongtienInput
     Yeuthich?: YeuthichPhuongTienCreateNestedManyWithoutPhuongtienInput
   }
@@ -14967,6 +16361,7 @@ export namespace Prisma {
     loai: string
     baivietId: number
     noidung?: string | null
+    sanphamId?: number | null
     Binhluan?: BinhluanUncheckedCreateNestedManyWithoutPhuongtienInput
     Yeuthich?: YeuthichPhuongTienUncheckedCreateNestedManyWithoutPhuongtienInput
   }
@@ -14976,6 +16371,7 @@ export namespace Prisma {
     loai?: StringFieldUpdateOperationsInput | string
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
     baiviet?: BaivietUpdateOneRequiredWithoutPhuongtienNestedInput
+    sanpham?: SanPhamUpdateOneWithoutPhuongtienNestedInput
     Binhluan?: BinhluanUpdateManyWithoutPhuongtienNestedInput
     Yeuthich?: YeuthichPhuongTienUpdateManyWithoutPhuongtienNestedInput
   }
@@ -14986,6 +16382,7 @@ export namespace Prisma {
     loai?: StringFieldUpdateOperationsInput | string
     baivietId?: IntFieldUpdateOperationsInput | number
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    sanphamId?: NullableIntFieldUpdateOperationsInput | number | null
     Binhluan?: BinhluanUncheckedUpdateManyWithoutPhuongtienNestedInput
     Yeuthich?: YeuthichPhuongTienUncheckedUpdateManyWithoutPhuongtienNestedInput
   }
@@ -14995,6 +16392,7 @@ export namespace Prisma {
     loai: string
     baivietId: number
     noidung?: string | null
+    sanphamId?: number | null
   }
 
   export type PhuongTienUpdateManyMutationInput = {
@@ -15009,6 +16407,7 @@ export namespace Prisma {
     loai?: StringFieldUpdateOperationsInput | string
     baivietId?: IntFieldUpdateOperationsInput | number
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    sanphamId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type YeuthichBaivietCreateInput = {
@@ -15107,6 +16506,7 @@ export namespace Prisma {
 
   export type ThongbaoCreateInput = {
     noidung?: string | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -15128,6 +16528,7 @@ export namespace Prisma {
     binhluanID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -15136,6 +16537,7 @@ export namespace Prisma {
 
   export type ThongbaoUpdateInput = {
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15157,6 +16559,7 @@ export namespace Prisma {
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15171,6 +16574,7 @@ export namespace Prisma {
     binhluanID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -15179,6 +16583,7 @@ export namespace Prisma {
 
   export type ThongbaoUpdateManyMutationInput = {
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15194,6 +16599,7 @@ export namespace Prisma {
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15342,6 +16748,96 @@ export namespace Prisma {
     ngaybaocao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SanPhamCreateInput = {
+    ten: string
+    mota?: string | null
+    gia: Decimal | DecimalJsLike | number | string
+    hinhanh?: string | null
+    loaiID: number
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    trangthai?: string
+    nguoiban: UserCreateNestedOneWithoutSanPhamInput
+    phuongtien?: PhuongTienCreateNestedManyWithoutSanphamInput
+  }
+
+  export type SanPhamUncheckedCreateInput = {
+    id?: number
+    ten: string
+    mota?: string | null
+    gia: Decimal | DecimalJsLike | number | string
+    hinhanh?: string | null
+    loaiID: number
+    nguoibanID: number
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    trangthai?: string
+    phuongtien?: PhuongTienUncheckedCreateNestedManyWithoutSanphamInput
+  }
+
+  export type SanPhamUpdateInput = {
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+    nguoiban?: UserUpdateOneRequiredWithoutSanPhamNestedInput
+    phuongtien?: PhuongTienUpdateManyWithoutSanphamNestedInput
+  }
+
+  export type SanPhamUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    nguoibanID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+    phuongtien?: PhuongTienUncheckedUpdateManyWithoutSanphamNestedInput
+  }
+
+  export type SanPhamCreateManyInput = {
+    ten: string
+    mota?: string | null
+    gia: Decimal | DecimalJsLike | number | string
+    hinhanh?: string | null
+    loaiID: number
+    nguoibanID: number
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    trangthai?: string
+  }
+
+  export type SanPhamUpdateManyMutationInput = {
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SanPhamUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    nguoibanID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -15440,6 +16936,12 @@ export namespace Prisma {
     none?: BaivietReportWhereInput
   }
 
+  export type SanPhamListRelationFilter = {
+    every?: SanPhamWhereInput
+    some?: SanPhamWhereInput
+    none?: SanPhamWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -15474,6 +16976,10 @@ export namespace Prisma {
   }
 
   export type BaivietReportOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SanPhamOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15790,17 +17296,24 @@ export namespace Prisma {
     isNot?: BaivietWhereInput
   }
 
+  export type SanPhamNullableScalarRelationFilter = {
+    is?: SanPhamWhereInput | null
+    isNot?: SanPhamWhereInput | null
+  }
+
   export type PhuongTienCountOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
     loai?: SortOrder
     baivietId?: SortOrder
     noidung?: SortOrder
+    sanphamId?: SortOrder
   }
 
   export type PhuongTienAvgOrderByAggregateInput = {
     id?: SortOrder
     baivietId?: SortOrder
+    sanphamId?: SortOrder
   }
 
   export type PhuongTienMaxOrderByAggregateInput = {
@@ -15809,6 +17322,7 @@ export namespace Prisma {
     loai?: SortOrder
     baivietId?: SortOrder
     noidung?: SortOrder
+    sanphamId?: SortOrder
   }
 
   export type PhuongTienMinOrderByAggregateInput = {
@@ -15817,11 +17331,13 @@ export namespace Prisma {
     loai?: SortOrder
     baivietId?: SortOrder
     noidung?: SortOrder
+    sanphamId?: SortOrder
   }
 
   export type PhuongTienSumOrderByAggregateInput = {
     id?: SortOrder
     baivietId?: SortOrder
+    sanphamId?: SortOrder
   }
 
   export type YeuthichBaivietNguoidungIDBaivietIDCompoundUniqueInput = {
@@ -15929,6 +17445,7 @@ export namespace Prisma {
     binhluanID?: SortOrder
     yeuthichAnhID?: SortOrder
     yeuthichBaiID?: SortOrder
+    yeuthichBinhLuanID?: SortOrder
     loai?: SortOrder
     ngaytao?: SortOrder
     ngaycapnhat?: SortOrder
@@ -15943,6 +17460,7 @@ export namespace Prisma {
     binhluanID?: SortOrder
     yeuthichAnhID?: SortOrder
     yeuthichBaiID?: SortOrder
+    yeuthichBinhLuanID?: SortOrder
   }
 
   export type ThongbaoMaxOrderByAggregateInput = {
@@ -15954,6 +17472,7 @@ export namespace Prisma {
     binhluanID?: SortOrder
     yeuthichAnhID?: SortOrder
     yeuthichBaiID?: SortOrder
+    yeuthichBinhLuanID?: SortOrder
     loai?: SortOrder
     ngaytao?: SortOrder
     ngaycapnhat?: SortOrder
@@ -15969,6 +17488,7 @@ export namespace Prisma {
     binhluanID?: SortOrder
     yeuthichAnhID?: SortOrder
     yeuthichBaiID?: SortOrder
+    yeuthichBinhLuanID?: SortOrder
     loai?: SortOrder
     ngaytao?: SortOrder
     ngaycapnhat?: SortOrder
@@ -15983,6 +17503,7 @@ export namespace Prisma {
     binhluanID?: SortOrder
     yeuthichAnhID?: SortOrder
     yeuthichBaiID?: SortOrder
+    yeuthichBinhLuanID?: SortOrder
   }
 
   export type ChudeCountOrderByAggregateInput = {
@@ -16079,6 +17600,86 @@ export namespace Prisma {
     nguoidungId?: SortOrder
   }
 
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type SanPhamCountOrderByAggregateInput = {
+    id?: SortOrder
+    ten?: SortOrder
+    mota?: SortOrder
+    gia?: SortOrder
+    hinhanh?: SortOrder
+    loaiID?: SortOrder
+    nguoibanID?: SortOrder
+    ngaytao?: SortOrder
+    ngaycapnhat?: SortOrder
+    trangthai?: SortOrder
+  }
+
+  export type SanPhamAvgOrderByAggregateInput = {
+    id?: SortOrder
+    gia?: SortOrder
+    loaiID?: SortOrder
+    nguoibanID?: SortOrder
+  }
+
+  export type SanPhamMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ten?: SortOrder
+    mota?: SortOrder
+    gia?: SortOrder
+    hinhanh?: SortOrder
+    loaiID?: SortOrder
+    nguoibanID?: SortOrder
+    ngaytao?: SortOrder
+    ngaycapnhat?: SortOrder
+    trangthai?: SortOrder
+  }
+
+  export type SanPhamMinOrderByAggregateInput = {
+    id?: SortOrder
+    ten?: SortOrder
+    mota?: SortOrder
+    gia?: SortOrder
+    hinhanh?: SortOrder
+    loaiID?: SortOrder
+    nguoibanID?: SortOrder
+    ngaytao?: SortOrder
+    ngaycapnhat?: SortOrder
+    trangthai?: SortOrder
+  }
+
+  export type SanPhamSumOrderByAggregateInput = {
+    id?: SortOrder
+    gia?: SortOrder
+    loaiID?: SortOrder
+    nguoibanID?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type BaivietCreateNestedManyWithoutTacgiaInput = {
     create?: XOR<BaivietCreateWithoutTacgiaInput, BaivietUncheckedCreateWithoutTacgiaInput> | BaivietCreateWithoutTacgiaInput[] | BaivietUncheckedCreateWithoutTacgiaInput[]
     connectOrCreate?: BaivietCreateOrConnectWithoutTacgiaInput | BaivietCreateOrConnectWithoutTacgiaInput[]
@@ -16156,6 +17757,13 @@ export namespace Prisma {
     connect?: BaivietReportWhereUniqueInput | BaivietReportWhereUniqueInput[]
   }
 
+  export type SanPhamCreateNestedManyWithoutNguoibanInput = {
+    create?: XOR<SanPhamCreateWithoutNguoibanInput, SanPhamUncheckedCreateWithoutNguoibanInput> | SanPhamCreateWithoutNguoibanInput[] | SanPhamUncheckedCreateWithoutNguoibanInput[]
+    connectOrCreate?: SanPhamCreateOrConnectWithoutNguoibanInput | SanPhamCreateOrConnectWithoutNguoibanInput[]
+    createMany?: SanPhamCreateManyNguoibanInputEnvelope
+    connect?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+  }
+
   export type BaivietUncheckedCreateNestedManyWithoutTacgiaInput = {
     create?: XOR<BaivietCreateWithoutTacgiaInput, BaivietUncheckedCreateWithoutTacgiaInput> | BaivietCreateWithoutTacgiaInput[] | BaivietUncheckedCreateWithoutTacgiaInput[]
     connectOrCreate?: BaivietCreateOrConnectWithoutTacgiaInput | BaivietCreateOrConnectWithoutTacgiaInput[]
@@ -16231,6 +17839,13 @@ export namespace Prisma {
     connectOrCreate?: BaivietReportCreateOrConnectWithoutNguoidungInput | BaivietReportCreateOrConnectWithoutNguoidungInput[]
     createMany?: BaivietReportCreateManyNguoidungInputEnvelope
     connect?: BaivietReportWhereUniqueInput | BaivietReportWhereUniqueInput[]
+  }
+
+  export type SanPhamUncheckedCreateNestedManyWithoutNguoibanInput = {
+    create?: XOR<SanPhamCreateWithoutNguoibanInput, SanPhamUncheckedCreateWithoutNguoibanInput> | SanPhamCreateWithoutNguoibanInput[] | SanPhamUncheckedCreateWithoutNguoibanInput[]
+    connectOrCreate?: SanPhamCreateOrConnectWithoutNguoibanInput | SanPhamCreateOrConnectWithoutNguoibanInput[]
+    createMany?: SanPhamCreateManyNguoibanInputEnvelope
+    connect?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -16399,6 +18014,20 @@ export namespace Prisma {
     deleteMany?: BaivietReportScalarWhereInput | BaivietReportScalarWhereInput[]
   }
 
+  export type SanPhamUpdateManyWithoutNguoibanNestedInput = {
+    create?: XOR<SanPhamCreateWithoutNguoibanInput, SanPhamUncheckedCreateWithoutNguoibanInput> | SanPhamCreateWithoutNguoibanInput[] | SanPhamUncheckedCreateWithoutNguoibanInput[]
+    connectOrCreate?: SanPhamCreateOrConnectWithoutNguoibanInput | SanPhamCreateOrConnectWithoutNguoibanInput[]
+    upsert?: SanPhamUpsertWithWhereUniqueWithoutNguoibanInput | SanPhamUpsertWithWhereUniqueWithoutNguoibanInput[]
+    createMany?: SanPhamCreateManyNguoibanInputEnvelope
+    set?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+    disconnect?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+    delete?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+    connect?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+    update?: SanPhamUpdateWithWhereUniqueWithoutNguoibanInput | SanPhamUpdateWithWhereUniqueWithoutNguoibanInput[]
+    updateMany?: SanPhamUpdateManyWithWhereWithoutNguoibanInput | SanPhamUpdateManyWithWhereWithoutNguoibanInput[]
+    deleteMany?: SanPhamScalarWhereInput | SanPhamScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -16559,6 +18188,20 @@ export namespace Prisma {
     update?: BaivietReportUpdateWithWhereUniqueWithoutNguoidungInput | BaivietReportUpdateWithWhereUniqueWithoutNguoidungInput[]
     updateMany?: BaivietReportUpdateManyWithWhereWithoutNguoidungInput | BaivietReportUpdateManyWithWhereWithoutNguoidungInput[]
     deleteMany?: BaivietReportScalarWhereInput | BaivietReportScalarWhereInput[]
+  }
+
+  export type SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput = {
+    create?: XOR<SanPhamCreateWithoutNguoibanInput, SanPhamUncheckedCreateWithoutNguoibanInput> | SanPhamCreateWithoutNguoibanInput[] | SanPhamUncheckedCreateWithoutNguoibanInput[]
+    connectOrCreate?: SanPhamCreateOrConnectWithoutNguoibanInput | SanPhamCreateOrConnectWithoutNguoibanInput[]
+    upsert?: SanPhamUpsertWithWhereUniqueWithoutNguoibanInput | SanPhamUpsertWithWhereUniqueWithoutNguoibanInput[]
+    createMany?: SanPhamCreateManyNguoibanInputEnvelope
+    set?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+    disconnect?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+    delete?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+    connect?: SanPhamWhereUniqueInput | SanPhamWhereUniqueInput[]
+    update?: SanPhamUpdateWithWhereUniqueWithoutNguoibanInput | SanPhamUpdateWithWhereUniqueWithoutNguoibanInput[]
+    updateMany?: SanPhamUpdateManyWithWhereWithoutNguoibanInput | SanPhamUpdateManyWithWhereWithoutNguoibanInput[]
+    deleteMany?: SanPhamScalarWhereInput | SanPhamScalarWhereInput[]
   }
 
   export type BaivietCreateNestedOneWithoutBinhluanInput = {
@@ -16933,6 +18576,12 @@ export namespace Prisma {
     connect?: BaivietWhereUniqueInput
   }
 
+  export type SanPhamCreateNestedOneWithoutPhuongtienInput = {
+    create?: XOR<SanPhamCreateWithoutPhuongtienInput, SanPhamUncheckedCreateWithoutPhuongtienInput>
+    connectOrCreate?: SanPhamCreateOrConnectWithoutPhuongtienInput
+    connect?: SanPhamWhereUniqueInput
+  }
+
   export type BinhluanCreateNestedManyWithoutPhuongtienInput = {
     create?: XOR<BinhluanCreateWithoutPhuongtienInput, BinhluanUncheckedCreateWithoutPhuongtienInput> | BinhluanCreateWithoutPhuongtienInput[] | BinhluanUncheckedCreateWithoutPhuongtienInput[]
     connectOrCreate?: BinhluanCreateOrConnectWithoutPhuongtienInput | BinhluanCreateOrConnectWithoutPhuongtienInput[]
@@ -16967,6 +18616,16 @@ export namespace Prisma {
     upsert?: BaivietUpsertWithoutPhuongtienInput
     connect?: BaivietWhereUniqueInput
     update?: XOR<XOR<BaivietUpdateToOneWithWhereWithoutPhuongtienInput, BaivietUpdateWithoutPhuongtienInput>, BaivietUncheckedUpdateWithoutPhuongtienInput>
+  }
+
+  export type SanPhamUpdateOneWithoutPhuongtienNestedInput = {
+    create?: XOR<SanPhamCreateWithoutPhuongtienInput, SanPhamUncheckedCreateWithoutPhuongtienInput>
+    connectOrCreate?: SanPhamCreateOrConnectWithoutPhuongtienInput
+    upsert?: SanPhamUpsertWithoutPhuongtienInput
+    disconnect?: SanPhamWhereInput | boolean
+    delete?: SanPhamWhereInput | boolean
+    connect?: SanPhamWhereUniqueInput
+    update?: XOR<XOR<SanPhamUpdateToOneWithWhereWithoutPhuongtienInput, SanPhamUpdateWithoutPhuongtienInput>, SanPhamUncheckedUpdateWithoutPhuongtienInput>
   }
 
   export type BinhluanUpdateManyWithoutPhuongtienNestedInput = {
@@ -17355,6 +19014,70 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBaocaobaivietInput, UserUpdateWithoutBaocaobaivietInput>, UserUncheckedUpdateWithoutBaocaobaivietInput>
   }
 
+  export type UserCreateNestedOneWithoutSanPhamInput = {
+    create?: XOR<UserCreateWithoutSanPhamInput, UserUncheckedCreateWithoutSanPhamInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSanPhamInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PhuongTienCreateNestedManyWithoutSanphamInput = {
+    create?: XOR<PhuongTienCreateWithoutSanphamInput, PhuongTienUncheckedCreateWithoutSanphamInput> | PhuongTienCreateWithoutSanphamInput[] | PhuongTienUncheckedCreateWithoutSanphamInput[]
+    connectOrCreate?: PhuongTienCreateOrConnectWithoutSanphamInput | PhuongTienCreateOrConnectWithoutSanphamInput[]
+    createMany?: PhuongTienCreateManySanphamInputEnvelope
+    connect?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+  }
+
+  export type PhuongTienUncheckedCreateNestedManyWithoutSanphamInput = {
+    create?: XOR<PhuongTienCreateWithoutSanphamInput, PhuongTienUncheckedCreateWithoutSanphamInput> | PhuongTienCreateWithoutSanphamInput[] | PhuongTienUncheckedCreateWithoutSanphamInput[]
+    connectOrCreate?: PhuongTienCreateOrConnectWithoutSanphamInput | PhuongTienCreateOrConnectWithoutSanphamInput[]
+    createMany?: PhuongTienCreateManySanphamInputEnvelope
+    connect?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type UserUpdateOneRequiredWithoutSanPhamNestedInput = {
+    create?: XOR<UserCreateWithoutSanPhamInput, UserUncheckedCreateWithoutSanPhamInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSanPhamInput
+    upsert?: UserUpsertWithoutSanPhamInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSanPhamInput, UserUpdateWithoutSanPhamInput>, UserUncheckedUpdateWithoutSanPhamInput>
+  }
+
+  export type PhuongTienUpdateManyWithoutSanphamNestedInput = {
+    create?: XOR<PhuongTienCreateWithoutSanphamInput, PhuongTienUncheckedCreateWithoutSanphamInput> | PhuongTienCreateWithoutSanphamInput[] | PhuongTienUncheckedCreateWithoutSanphamInput[]
+    connectOrCreate?: PhuongTienCreateOrConnectWithoutSanphamInput | PhuongTienCreateOrConnectWithoutSanphamInput[]
+    upsert?: PhuongTienUpsertWithWhereUniqueWithoutSanphamInput | PhuongTienUpsertWithWhereUniqueWithoutSanphamInput[]
+    createMany?: PhuongTienCreateManySanphamInputEnvelope
+    set?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+    disconnect?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+    delete?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+    connect?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+    update?: PhuongTienUpdateWithWhereUniqueWithoutSanphamInput | PhuongTienUpdateWithWhereUniqueWithoutSanphamInput[]
+    updateMany?: PhuongTienUpdateManyWithWhereWithoutSanphamInput | PhuongTienUpdateManyWithWhereWithoutSanphamInput[]
+    deleteMany?: PhuongTienScalarWhereInput | PhuongTienScalarWhereInput[]
+  }
+
+  export type PhuongTienUncheckedUpdateManyWithoutSanphamNestedInput = {
+    create?: XOR<PhuongTienCreateWithoutSanphamInput, PhuongTienUncheckedCreateWithoutSanphamInput> | PhuongTienCreateWithoutSanphamInput[] | PhuongTienUncheckedCreateWithoutSanphamInput[]
+    connectOrCreate?: PhuongTienCreateOrConnectWithoutSanphamInput | PhuongTienCreateOrConnectWithoutSanphamInput[]
+    upsert?: PhuongTienUpsertWithWhereUniqueWithoutSanphamInput | PhuongTienUpsertWithWhereUniqueWithoutSanphamInput[]
+    createMany?: PhuongTienCreateManySanphamInputEnvelope
+    set?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+    disconnect?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+    delete?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+    connect?: PhuongTienWhereUniqueInput | PhuongTienWhereUniqueInput[]
+    update?: PhuongTienUpdateWithWhereUniqueWithoutSanphamInput | PhuongTienUpdateWithWhereUniqueWithoutSanphamInput[]
+    updateMany?: PhuongTienUpdateManyWithWhereWithoutSanphamInput | PhuongTienUpdateManyWithWhereWithoutSanphamInput[]
+    deleteMany?: PhuongTienScalarWhereInput | PhuongTienScalarWhereInput[]
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -17531,6 +19254,33 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[]
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
   export type BaivietCreateWithoutTacgiaInput = {
     noidung?: string | null
     ngaytao?: Date | string
@@ -17637,6 +19387,7 @@ export namespace Prisma {
 
   export type ThongbaoCreateWithoutNguoidungInput = {
     noidung?: string | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -17656,6 +19407,7 @@ export namespace Prisma {
     binhluanID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -17673,6 +19425,7 @@ export namespace Prisma {
 
   export type ThongbaoCreateWithoutNguoitaoInput = {
     noidung?: string | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -17692,6 +19445,7 @@ export namespace Prisma {
     binhluanID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -17819,6 +19573,40 @@ export namespace Prisma {
 
   export type BaivietReportCreateManyNguoidungInputEnvelope = {
     data: BaivietReportCreateManyNguoidungInput | BaivietReportCreateManyNguoidungInput[]
+  }
+
+  export type SanPhamCreateWithoutNguoibanInput = {
+    ten: string
+    mota?: string | null
+    gia: Decimal | DecimalJsLike | number | string
+    hinhanh?: string | null
+    loaiID: number
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    trangthai?: string
+    phuongtien?: PhuongTienCreateNestedManyWithoutSanphamInput
+  }
+
+  export type SanPhamUncheckedCreateWithoutNguoibanInput = {
+    id?: number
+    ten: string
+    mota?: string | null
+    gia: Decimal | DecimalJsLike | number | string
+    hinhanh?: string | null
+    loaiID: number
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    trangthai?: string
+    phuongtien?: PhuongTienUncheckedCreateNestedManyWithoutSanphamInput
+  }
+
+  export type SanPhamCreateOrConnectWithoutNguoibanInput = {
+    where: SanPhamWhereUniqueInput
+    create: XOR<SanPhamCreateWithoutNguoibanInput, SanPhamUncheckedCreateWithoutNguoibanInput>
+  }
+
+  export type SanPhamCreateManyNguoibanInputEnvelope = {
+    data: SanPhamCreateManyNguoibanInput | SanPhamCreateManyNguoibanInput[]
   }
 
   export type BaivietUpsertWithWhereUniqueWithoutTacgiaInput = {
@@ -17949,6 +19737,7 @@ export namespace Prisma {
     binhluanID?: IntNullableFilter<"Thongbao"> | number | null
     yeuthichAnhID?: IntNullableFilter<"Thongbao"> | number | null
     yeuthichBaiID?: IntNullableFilter<"Thongbao"> | number | null
+    yeuthichBinhLuanID?: IntNullableFilter<"Thongbao"> | number | null
     loai?: StringNullableFilter<"Thongbao"> | string | null
     ngaytao?: DateTimeFilter<"Thongbao"> | Date | string
     ngaycapnhat?: DateTimeFilter<"Thongbao"> | Date | string
@@ -18094,6 +19883,38 @@ export namespace Prisma {
     ngaybaocao?: DateTimeFilter<"BaivietReport"> | Date | string
   }
 
+  export type SanPhamUpsertWithWhereUniqueWithoutNguoibanInput = {
+    where: SanPhamWhereUniqueInput
+    update: XOR<SanPhamUpdateWithoutNguoibanInput, SanPhamUncheckedUpdateWithoutNguoibanInput>
+    create: XOR<SanPhamCreateWithoutNguoibanInput, SanPhamUncheckedCreateWithoutNguoibanInput>
+  }
+
+  export type SanPhamUpdateWithWhereUniqueWithoutNguoibanInput = {
+    where: SanPhamWhereUniqueInput
+    data: XOR<SanPhamUpdateWithoutNguoibanInput, SanPhamUncheckedUpdateWithoutNguoibanInput>
+  }
+
+  export type SanPhamUpdateManyWithWhereWithoutNguoibanInput = {
+    where: SanPhamScalarWhereInput
+    data: XOR<SanPhamUpdateManyMutationInput, SanPhamUncheckedUpdateManyWithoutNguoibanInput>
+  }
+
+  export type SanPhamScalarWhereInput = {
+    AND?: SanPhamScalarWhereInput | SanPhamScalarWhereInput[]
+    OR?: SanPhamScalarWhereInput[]
+    NOT?: SanPhamScalarWhereInput | SanPhamScalarWhereInput[]
+    id?: IntFilter<"SanPham"> | number
+    ten?: StringFilter<"SanPham"> | string
+    mota?: StringNullableFilter<"SanPham"> | string | null
+    gia?: DecimalFilter<"SanPham"> | Decimal | DecimalJsLike | number | string
+    hinhanh?: StringNullableFilter<"SanPham"> | string | null
+    loaiID?: IntFilter<"SanPham"> | number
+    nguoibanID?: IntFilter<"SanPham"> | number
+    ngaytao?: DateTimeFilter<"SanPham"> | Date | string
+    ngaycapnhat?: DateTimeFilter<"SanPham"> | Date | string
+    trangthai?: StringFilter<"SanPham"> | string
+  }
+
   export type BaivietCreateWithoutBinhluanInput = {
     noidung?: string | null
     ngaytao?: Date | string
@@ -18147,6 +19968,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutBinhluanInput = {
@@ -18171,6 +19993,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutBinhluanInput = {
@@ -18183,6 +20006,7 @@ export namespace Prisma {
     loai: string
     noidung?: string | null
     baiviet: BaivietCreateNestedOneWithoutPhuongtienInput
+    sanpham?: SanPhamCreateNestedOneWithoutPhuongtienInput
     Yeuthich?: YeuthichPhuongTienCreateNestedManyWithoutPhuongtienInput
   }
 
@@ -18192,6 +20016,7 @@ export namespace Prisma {
     loai: string
     baivietId: number
     noidung?: string | null
+    sanphamId?: number | null
     Yeuthich?: YeuthichPhuongTienUncheckedCreateNestedManyWithoutPhuongtienInput
   }
 
@@ -18202,6 +20027,7 @@ export namespace Prisma {
 
   export type ThongbaoCreateWithoutBinhluanInput = {
     noidung?: string | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -18221,6 +20047,7 @@ export namespace Prisma {
     baivietID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -18306,6 +20133,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBinhluanInput = {
@@ -18330,6 +20158,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type PhuongTienUpsertWithoutBinhluanInput = {
@@ -18348,6 +20177,7 @@ export namespace Prisma {
     loai?: StringFieldUpdateOperationsInput | string
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
     baiviet?: BaivietUpdateOneRequiredWithoutPhuongtienNestedInput
+    sanpham?: SanPhamUpdateOneWithoutPhuongtienNestedInput
     Yeuthich?: YeuthichPhuongTienUpdateManyWithoutPhuongtienNestedInput
   }
 
@@ -18357,6 +20187,7 @@ export namespace Prisma {
     loai?: StringFieldUpdateOperationsInput | string
     baivietId?: IntFieldUpdateOperationsInput | number
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    sanphamId?: NullableIntFieldUpdateOperationsInput | number | null
     Yeuthich?: YeuthichPhuongTienUncheckedUpdateManyWithoutPhuongtienNestedInput
   }
 
@@ -18397,6 +20228,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutDangtheodoiInput = {
@@ -18421,6 +20253,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutDangtheodoiInput = {
@@ -18449,6 +20282,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutNguoitheodoiInput = {
@@ -18473,6 +20307,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutNguoitheodoiInput = {
@@ -18512,6 +20347,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDangtheodoiInput = {
@@ -18536,6 +20372,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUpsertWithoutNguoitheodoiInput = {
@@ -18570,6 +20407,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNguoitheodoiInput = {
@@ -18594,12 +20432,14 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type PhuongTienCreateWithoutBaivietInput = {
     url: string
     loai: string
     noidung?: string | null
+    sanpham?: SanPhamCreateNestedOneWithoutPhuongtienInput
     Binhluan?: BinhluanCreateNestedManyWithoutPhuongtienInput
     Yeuthich?: YeuthichPhuongTienCreateNestedManyWithoutPhuongtienInput
   }
@@ -18609,6 +20449,7 @@ export namespace Prisma {
     url: string
     loai: string
     noidung?: string | null
+    sanphamId?: number | null
     Binhluan?: BinhluanUncheckedCreateNestedManyWithoutPhuongtienInput
     Yeuthich?: YeuthichPhuongTienUncheckedCreateNestedManyWithoutPhuongtienInput
   }
@@ -18657,6 +20498,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutBaivietInput = {
@@ -18681,6 +20523,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutBaivietInput = {
@@ -18718,6 +20561,7 @@ export namespace Prisma {
 
   export type ThongbaoCreateWithoutBaivietInput = {
     noidung?: string | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -18737,6 +20581,7 @@ export namespace Prisma {
     binhluanID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -18821,6 +20666,7 @@ export namespace Prisma {
     loai?: StringFilter<"PhuongTien"> | string
     baivietId?: IntFilter<"PhuongTien"> | number
     noidung?: StringNullableFilter<"PhuongTien"> | string | null
+    sanphamId?: IntNullableFilter<"PhuongTien"> | number | null
   }
 
   export type ChudeUpsertWithoutBaivietInput = {
@@ -18875,6 +20721,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBaivietInput = {
@@ -18899,6 +20746,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type BinhluanUpsertWithWhereUniqueWithoutBaivietInput = {
@@ -18997,6 +20845,36 @@ export namespace Prisma {
     create: XOR<BaivietCreateWithoutPhuongtienInput, BaivietUncheckedCreateWithoutPhuongtienInput>
   }
 
+  export type SanPhamCreateWithoutPhuongtienInput = {
+    ten: string
+    mota?: string | null
+    gia: Decimal | DecimalJsLike | number | string
+    hinhanh?: string | null
+    loaiID: number
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    trangthai?: string
+    nguoiban: UserCreateNestedOneWithoutSanPhamInput
+  }
+
+  export type SanPhamUncheckedCreateWithoutPhuongtienInput = {
+    id?: number
+    ten: string
+    mota?: string | null
+    gia: Decimal | DecimalJsLike | number | string
+    hinhanh?: string | null
+    loaiID: number
+    nguoibanID: number
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    trangthai?: string
+  }
+
+  export type SanPhamCreateOrConnectWithoutPhuongtienInput = {
+    where: SanPhamWhereUniqueInput
+    create: XOR<SanPhamCreateWithoutPhuongtienInput, SanPhamUncheckedCreateWithoutPhuongtienInput>
+  }
+
   export type BinhluanCreateWithoutPhuongtienInput = {
     noidung: string
     ngaytao?: Date | string
@@ -19085,6 +20963,42 @@ export namespace Prisma {
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutBaivietNestedInput
   }
 
+  export type SanPhamUpsertWithoutPhuongtienInput = {
+    update: XOR<SanPhamUpdateWithoutPhuongtienInput, SanPhamUncheckedUpdateWithoutPhuongtienInput>
+    create: XOR<SanPhamCreateWithoutPhuongtienInput, SanPhamUncheckedCreateWithoutPhuongtienInput>
+    where?: SanPhamWhereInput
+  }
+
+  export type SanPhamUpdateToOneWithWhereWithoutPhuongtienInput = {
+    where?: SanPhamWhereInput
+    data: XOR<SanPhamUpdateWithoutPhuongtienInput, SanPhamUncheckedUpdateWithoutPhuongtienInput>
+  }
+
+  export type SanPhamUpdateWithoutPhuongtienInput = {
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+    nguoiban?: UserUpdateOneRequiredWithoutSanPhamNestedInput
+  }
+
+  export type SanPhamUncheckedUpdateWithoutPhuongtienInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    nguoibanID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+  }
+
   export type BinhluanUpsertWithWhereUniqueWithoutPhuongtienInput = {
     where: BinhluanWhereUniqueInput
     update: XOR<BinhluanUpdateWithoutPhuongtienInput, BinhluanUncheckedUpdateWithoutPhuongtienInput>
@@ -19138,6 +21052,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutYeuthichBaiInput = {
@@ -19162,6 +21077,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutYeuthichBaiInput = {
@@ -19203,6 +21119,7 @@ export namespace Prisma {
 
   export type ThongbaoCreateWithoutYeuthichBaiInput = {
     noidung?: string | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -19222,6 +21139,7 @@ export namespace Prisma {
     baivietID?: number | null
     binhluanID?: number | null
     yeuthichAnhID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -19269,6 +21187,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutYeuthichBaiInput = {
@@ -19293,6 +21212,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type BaivietUpsertWithoutYeuthichInput = {
@@ -19370,6 +21290,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutYeuthichAnhInput = {
@@ -19394,6 +21315,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutYeuthichAnhInput = {
@@ -19406,6 +21328,7 @@ export namespace Prisma {
     loai: string
     noidung?: string | null
     baiviet: BaivietCreateNestedOneWithoutPhuongtienInput
+    sanpham?: SanPhamCreateNestedOneWithoutPhuongtienInput
     Binhluan?: BinhluanCreateNestedManyWithoutPhuongtienInput
   }
 
@@ -19415,6 +21338,7 @@ export namespace Prisma {
     loai: string
     baivietId: number
     noidung?: string | null
+    sanphamId?: number | null
     Binhluan?: BinhluanUncheckedCreateNestedManyWithoutPhuongtienInput
   }
 
@@ -19425,6 +21349,7 @@ export namespace Prisma {
 
   export type ThongbaoCreateWithoutYeuthichAnhInput = {
     noidung?: string | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -19444,6 +21369,7 @@ export namespace Prisma {
     baivietID?: number | null
     binhluanID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -19491,6 +21417,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutYeuthichAnhInput = {
@@ -19515,6 +21442,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type PhuongTienUpsertWithoutYeuthichInput = {
@@ -19533,6 +21461,7 @@ export namespace Prisma {
     loai?: StringFieldUpdateOperationsInput | string
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
     baiviet?: BaivietUpdateOneRequiredWithoutPhuongtienNestedInput
+    sanpham?: SanPhamUpdateOneWithoutPhuongtienNestedInput
     Binhluan?: BinhluanUpdateManyWithoutPhuongtienNestedInput
   }
 
@@ -19542,6 +21471,7 @@ export namespace Prisma {
     loai?: StringFieldUpdateOperationsInput | string
     baivietId?: IntFieldUpdateOperationsInput | number
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    sanphamId?: NullableIntFieldUpdateOperationsInput | number | null
     Binhluan?: BinhluanUncheckedUpdateManyWithoutPhuongtienNestedInput
   }
 
@@ -19638,6 +21568,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutThongbaoInput = {
@@ -19662,6 +21593,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutThongbaoInput = {
@@ -19690,6 +21622,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutThongbaoDaTaoInput = {
@@ -19714,6 +21647,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutThongbaoDaTaoInput = {
@@ -19857,6 +21791,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutThongbaoInput = {
@@ -19881,6 +21816,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUpsertWithoutThongbaoDaTaoInput = {
@@ -19915,6 +21851,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutThongbaoDaTaoInput = {
@@ -19939,6 +21876,7 @@ export namespace Prisma {
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type YeuthichPhuongTienUpsertWithoutThongbaoInput = {
@@ -20062,6 +22000,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienCreateNestedManyWithoutNguoidungInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutGuiTinNhanInput = {
@@ -20086,6 +22025,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUncheckedCreateNestedManyWithoutNguoidungInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutGuiTinNhanInput = {
@@ -20114,6 +22054,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienCreateNestedManyWithoutNguoidungInput
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutNhanTinNhanInput = {
@@ -20138,6 +22079,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUncheckedCreateNestedManyWithoutNguoidungInput
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutNhanTinNhanInput = {
@@ -20177,6 +22119,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUpdateManyWithoutNguoidungNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGuiTinNhanInput = {
@@ -20201,6 +22144,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUncheckedUpdateManyWithoutNguoidungNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUpsertWithoutNhanTinNhanInput = {
@@ -20235,6 +22179,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUpdateManyWithoutNguoidungNestedInput
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNhanTinNhanInput = {
@@ -20259,6 +22204,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUncheckedUpdateManyWithoutNguoidungNestedInput
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
   }
 
   export type BaivietCreateWithoutBaocaobaivietInput = {
@@ -20314,6 +22260,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienCreateNestedManyWithoutNguoidungInput
     guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
+    SanPham?: SanPhamCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserUncheckedCreateWithoutBaocaobaivietInput = {
@@ -20338,6 +22285,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUncheckedCreateNestedManyWithoutNguoidungInput
     guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
     nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
+    SanPham?: SanPhamUncheckedCreateNestedManyWithoutNguoibanInput
   }
 
   export type UserCreateOrConnectWithoutBaocaobaivietInput = {
@@ -20415,6 +22363,7 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUpdateManyWithoutNguoidungNestedInput
     guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
+    SanPham?: SanPhamUpdateManyWithoutNguoibanNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBaocaobaivietInput = {
@@ -20439,6 +22388,165 @@ export namespace Prisma {
     yeuthichAnh?: YeuthichPhuongTienUncheckedUpdateManyWithoutNguoidungNestedInput
     guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
     nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
+    SanPham?: SanPhamUncheckedUpdateManyWithoutNguoibanNestedInput
+  }
+
+  export type UserCreateWithoutSanPhamInput = {
+    email: string
+    username: string
+    clerkId: string
+    ten?: string | null
+    tieusu?: string | null
+    hinhanh?: string | null
+    diachi?: string | null
+    website?: string | null
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    baiviet?: BaivietCreateNestedManyWithoutTacgiaInput
+    binhluan?: BinhluanCreateNestedManyWithoutTacgiaInput
+    dangtheodoi?: TheodoiCreateNestedManyWithoutNguoiTheoDoiInput
+    nguoitheodoi?: TheodoiCreateNestedManyWithoutNguoiDuocTheoDoiInput
+    thongbao?: ThongbaoCreateNestedManyWithoutNguoidungInput
+    thongbaoDaTao?: ThongbaoCreateNestedManyWithoutNguoitaoInput
+    yeuthichBai?: YeuthichBaivietCreateNestedManyWithoutNguoidungInput
+    yeuthichAnh?: YeuthichPhuongTienCreateNestedManyWithoutNguoidungInput
+    guiTinNhan?: TinNhanCreateNestedManyWithoutNguoiGuiInput
+    nhanTinNhan?: TinNhanCreateNestedManyWithoutNguoiNhanInput
+    baocaobaiviet?: BaivietReportCreateNestedManyWithoutNguoidungInput
+  }
+
+  export type UserUncheckedCreateWithoutSanPhamInput = {
+    id?: number
+    email: string
+    username: string
+    clerkId: string
+    ten?: string | null
+    tieusu?: string | null
+    hinhanh?: string | null
+    diachi?: string | null
+    website?: string | null
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    baiviet?: BaivietUncheckedCreateNestedManyWithoutTacgiaInput
+    binhluan?: BinhluanUncheckedCreateNestedManyWithoutTacgiaInput
+    dangtheodoi?: TheodoiUncheckedCreateNestedManyWithoutNguoiTheoDoiInput
+    nguoitheodoi?: TheodoiUncheckedCreateNestedManyWithoutNguoiDuocTheoDoiInput
+    thongbao?: ThongbaoUncheckedCreateNestedManyWithoutNguoidungInput
+    thongbaoDaTao?: ThongbaoUncheckedCreateNestedManyWithoutNguoitaoInput
+    yeuthichBai?: YeuthichBaivietUncheckedCreateNestedManyWithoutNguoidungInput
+    yeuthichAnh?: YeuthichPhuongTienUncheckedCreateNestedManyWithoutNguoidungInput
+    guiTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiGuiInput
+    nhanTinNhan?: TinNhanUncheckedCreateNestedManyWithoutNguoiNhanInput
+    baocaobaiviet?: BaivietReportUncheckedCreateNestedManyWithoutNguoidungInput
+  }
+
+  export type UserCreateOrConnectWithoutSanPhamInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSanPhamInput, UserUncheckedCreateWithoutSanPhamInput>
+  }
+
+  export type PhuongTienCreateWithoutSanphamInput = {
+    url: string
+    loai: string
+    noidung?: string | null
+    baiviet: BaivietCreateNestedOneWithoutPhuongtienInput
+    Binhluan?: BinhluanCreateNestedManyWithoutPhuongtienInput
+    Yeuthich?: YeuthichPhuongTienCreateNestedManyWithoutPhuongtienInput
+  }
+
+  export type PhuongTienUncheckedCreateWithoutSanphamInput = {
+    id?: number
+    url: string
+    loai: string
+    baivietId: number
+    noidung?: string | null
+    Binhluan?: BinhluanUncheckedCreateNestedManyWithoutPhuongtienInput
+    Yeuthich?: YeuthichPhuongTienUncheckedCreateNestedManyWithoutPhuongtienInput
+  }
+
+  export type PhuongTienCreateOrConnectWithoutSanphamInput = {
+    where: PhuongTienWhereUniqueInput
+    create: XOR<PhuongTienCreateWithoutSanphamInput, PhuongTienUncheckedCreateWithoutSanphamInput>
+  }
+
+  export type PhuongTienCreateManySanphamInputEnvelope = {
+    data: PhuongTienCreateManySanphamInput | PhuongTienCreateManySanphamInput[]
+  }
+
+  export type UserUpsertWithoutSanPhamInput = {
+    update: XOR<UserUpdateWithoutSanPhamInput, UserUncheckedUpdateWithoutSanPhamInput>
+    create: XOR<UserCreateWithoutSanPhamInput, UserUncheckedCreateWithoutSanPhamInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSanPhamInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSanPhamInput, UserUncheckedUpdateWithoutSanPhamInput>
+  }
+
+  export type UserUpdateWithoutSanPhamInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    ten?: NullableStringFieldUpdateOperationsInput | string | null
+    tieusu?: NullableStringFieldUpdateOperationsInput | string | null
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    diachi?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    baiviet?: BaivietUpdateManyWithoutTacgiaNestedInput
+    binhluan?: BinhluanUpdateManyWithoutTacgiaNestedInput
+    dangtheodoi?: TheodoiUpdateManyWithoutNguoiTheoDoiNestedInput
+    nguoitheodoi?: TheodoiUpdateManyWithoutNguoiDuocTheoDoiNestedInput
+    thongbao?: ThongbaoUpdateManyWithoutNguoidungNestedInput
+    thongbaoDaTao?: ThongbaoUpdateManyWithoutNguoitaoNestedInput
+    yeuthichBai?: YeuthichBaivietUpdateManyWithoutNguoidungNestedInput
+    yeuthichAnh?: YeuthichPhuongTienUpdateManyWithoutNguoidungNestedInput
+    guiTinNhan?: TinNhanUpdateManyWithoutNguoiGuiNestedInput
+    nhanTinNhan?: TinNhanUpdateManyWithoutNguoiNhanNestedInput
+    baocaobaiviet?: BaivietReportUpdateManyWithoutNguoidungNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSanPhamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    clerkId?: StringFieldUpdateOperationsInput | string
+    ten?: NullableStringFieldUpdateOperationsInput | string | null
+    tieusu?: NullableStringFieldUpdateOperationsInput | string | null
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    diachi?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    baiviet?: BaivietUncheckedUpdateManyWithoutTacgiaNestedInput
+    binhluan?: BinhluanUncheckedUpdateManyWithoutTacgiaNestedInput
+    dangtheodoi?: TheodoiUncheckedUpdateManyWithoutNguoiTheoDoiNestedInput
+    nguoitheodoi?: TheodoiUncheckedUpdateManyWithoutNguoiDuocTheoDoiNestedInput
+    thongbao?: ThongbaoUncheckedUpdateManyWithoutNguoidungNestedInput
+    thongbaoDaTao?: ThongbaoUncheckedUpdateManyWithoutNguoitaoNestedInput
+    yeuthichBai?: YeuthichBaivietUncheckedUpdateManyWithoutNguoidungNestedInput
+    yeuthichAnh?: YeuthichPhuongTienUncheckedUpdateManyWithoutNguoidungNestedInput
+    guiTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiGuiNestedInput
+    nhanTinNhan?: TinNhanUncheckedUpdateManyWithoutNguoiNhanNestedInput
+    baocaobaiviet?: BaivietReportUncheckedUpdateManyWithoutNguoidungNestedInput
+  }
+
+  export type PhuongTienUpsertWithWhereUniqueWithoutSanphamInput = {
+    where: PhuongTienWhereUniqueInput
+    update: XOR<PhuongTienUpdateWithoutSanphamInput, PhuongTienUncheckedUpdateWithoutSanphamInput>
+    create: XOR<PhuongTienCreateWithoutSanphamInput, PhuongTienUncheckedCreateWithoutSanphamInput>
+  }
+
+  export type PhuongTienUpdateWithWhereUniqueWithoutSanphamInput = {
+    where: PhuongTienWhereUniqueInput
+    data: XOR<PhuongTienUpdateWithoutSanphamInput, PhuongTienUncheckedUpdateWithoutSanphamInput>
+  }
+
+  export type PhuongTienUpdateManyWithWhereWithoutSanphamInput = {
+    where: PhuongTienScalarWhereInput
+    data: XOR<PhuongTienUpdateManyMutationInput, PhuongTienUncheckedUpdateManyWithoutSanphamInput>
   }
 
   export type BaivietCreateManyTacgiaInput = {
@@ -20474,6 +22582,7 @@ export namespace Prisma {
     binhluanID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -20487,6 +22596,7 @@ export namespace Prisma {
     binhluanID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -20521,6 +22631,17 @@ export namespace Prisma {
     baivietId: number
     lydo: string
     ngaybaocao?: Date | string
+  }
+
+  export type SanPhamCreateManyNguoibanInput = {
+    ten: string
+    mota?: string | null
+    gia: Decimal | DecimalJsLike | number | string
+    hinhanh?: string | null
+    loaiID: number
+    ngaytao?: Date | string
+    ngaycapnhat?: Date | string
+    trangthai?: string
   }
 
   export type BaivietUpdateWithoutTacgiaInput = {
@@ -20623,6 +22744,7 @@ export namespace Prisma {
 
   export type ThongbaoUpdateWithoutNguoidungInput = {
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20642,6 +22764,7 @@ export namespace Prisma {
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20656,6 +22779,7 @@ export namespace Prisma {
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20664,6 +22788,7 @@ export namespace Prisma {
 
   export type ThongbaoUpdateWithoutNguoitaoInput = {
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20683,6 +22808,7 @@ export namespace Prisma {
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20697,6 +22823,7 @@ export namespace Prisma {
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20807,6 +22934,43 @@ export namespace Prisma {
     ngaybaocao?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SanPhamUpdateWithoutNguoibanInput = {
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+    phuongtien?: PhuongTienUpdateManyWithoutSanphamNestedInput
+  }
+
+  export type SanPhamUncheckedUpdateWithoutNguoibanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+    phuongtien?: PhuongTienUncheckedUpdateManyWithoutSanphamNestedInput
+  }
+
+  export type SanPhamUncheckedUpdateManyWithoutNguoibanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    ten?: StringFieldUpdateOperationsInput | string
+    mota?: NullableStringFieldUpdateOperationsInput | string | null
+    gia?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    hinhanh?: NullableStringFieldUpdateOperationsInput | string | null
+    loaiID?: IntFieldUpdateOperationsInput | number
+    ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
+    ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
+    trangthai?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ThongbaoCreateManyBinhluanInput = {
     nguoidungID: number
     nguoitaoID: number
@@ -20814,6 +22978,7 @@ export namespace Prisma {
     baivietID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -20822,6 +22987,7 @@ export namespace Prisma {
 
   export type ThongbaoUpdateWithoutBinhluanInput = {
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20841,6 +23007,7 @@ export namespace Prisma {
     baivietID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20855,6 +23022,7 @@ export namespace Prisma {
     baivietID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20865,6 +23033,7 @@ export namespace Prisma {
     url: string
     loai: string
     noidung?: string | null
+    sanphamId?: number | null
   }
 
   export type BinhluanCreateManyBaivietInput = {
@@ -20882,6 +23051,7 @@ export namespace Prisma {
     binhluanID?: number | null
     yeuthichAnhID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -20903,6 +23073,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     loai?: StringFieldUpdateOperationsInput | string
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    sanpham?: SanPhamUpdateOneWithoutPhuongtienNestedInput
     Binhluan?: BinhluanUpdateManyWithoutPhuongtienNestedInput
     Yeuthich?: YeuthichPhuongTienUpdateManyWithoutPhuongtienNestedInput
   }
@@ -20912,6 +23083,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     loai?: StringFieldUpdateOperationsInput | string
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    sanphamId?: NullableIntFieldUpdateOperationsInput | number | null
     Binhluan?: BinhluanUncheckedUpdateManyWithoutPhuongtienNestedInput
     Yeuthich?: YeuthichPhuongTienUncheckedUpdateManyWithoutPhuongtienNestedInput
   }
@@ -20921,6 +23093,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     loai?: StringFieldUpdateOperationsInput | string
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    sanphamId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type BinhluanUpdateWithoutBaivietInput = {
@@ -20953,6 +23126,7 @@ export namespace Prisma {
 
   export type ThongbaoUpdateWithoutBaivietInput = {
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20972,6 +23146,7 @@ export namespace Prisma {
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20986,6 +23161,7 @@ export namespace Prisma {
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21098,6 +23274,7 @@ export namespace Prisma {
     baivietID?: number | null
     binhluanID?: number | null
     yeuthichAnhID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -21106,6 +23283,7 @@ export namespace Prisma {
 
   export type ThongbaoUpdateWithoutYeuthichBaiInput = {
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21125,6 +23303,7 @@ export namespace Prisma {
     baivietID?: NullableIntFieldUpdateOperationsInput | number | null
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21139,6 +23318,7 @@ export namespace Prisma {
     baivietID?: NullableIntFieldUpdateOperationsInput | number | null
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichAnhID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21152,6 +23332,7 @@ export namespace Prisma {
     baivietID?: number | null
     binhluanID?: number | null
     yeuthichBaiID?: number | null
+    yeuthichBinhLuanID?: number | null
     loai?: string | null
     ngaytao?: Date | string
     ngaycapnhat?: Date | string
@@ -21160,6 +23341,7 @@ export namespace Prisma {
 
   export type ThongbaoUpdateWithoutYeuthichAnhInput = {
     noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21179,6 +23361,7 @@ export namespace Prisma {
     baivietID?: NullableIntFieldUpdateOperationsInput | number | null
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21193,6 +23376,7 @@ export namespace Prisma {
     baivietID?: NullableIntFieldUpdateOperationsInput | number | null
     binhluanID?: NullableIntFieldUpdateOperationsInput | number | null
     yeuthichBaiID?: NullableIntFieldUpdateOperationsInput | number | null
+    yeuthichBinhLuanID?: NullableIntFieldUpdateOperationsInput | number | null
     loai?: NullableStringFieldUpdateOperationsInput | string | null
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21241,6 +23425,40 @@ export namespace Prisma {
     ngaytao?: DateTimeFieldUpdateOperationsInput | Date | string
     ngaycapnhat?: DateTimeFieldUpdateOperationsInput | Date | string
     congkhai?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type PhuongTienCreateManySanphamInput = {
+    url: string
+    loai: string
+    baivietId: number
+    noidung?: string | null
+  }
+
+  export type PhuongTienUpdateWithoutSanphamInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    loai?: StringFieldUpdateOperationsInput | string
+    noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    baiviet?: BaivietUpdateOneRequiredWithoutPhuongtienNestedInput
+    Binhluan?: BinhluanUpdateManyWithoutPhuongtienNestedInput
+    Yeuthich?: YeuthichPhuongTienUpdateManyWithoutPhuongtienNestedInput
+  }
+
+  export type PhuongTienUncheckedUpdateWithoutSanphamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    loai?: StringFieldUpdateOperationsInput | string
+    baivietId?: IntFieldUpdateOperationsInput | number
+    noidung?: NullableStringFieldUpdateOperationsInput | string | null
+    Binhluan?: BinhluanUncheckedUpdateManyWithoutPhuongtienNestedInput
+    Yeuthich?: YeuthichPhuongTienUncheckedUpdateManyWithoutPhuongtienNestedInput
+  }
+
+  export type PhuongTienUncheckedUpdateManyWithoutSanphamInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    loai?: StringFieldUpdateOperationsInput | string
+    baivietId?: IntFieldUpdateOperationsInput | number
+    noidung?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

@@ -24,6 +24,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { NutThich } from "@/components/Nut/NutThich";
 
+import EmojiPicker from "emoji-picker-react";
+import { FaRegSmile } from "react-icons/fa";
+
 interface AnhActionsClientProps {
   phuongtienId: number;
   baivietId: number;
@@ -65,6 +68,7 @@ export function AnhActionsClient({
   const [commentInput, setCommentInput] = useState("");
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
   const [comments, setComments] = useState(binhluanLienQuan);
+  const [showEmoji, setShowEmoji] = useState(false);
 
   useEffect(() => {
     async function fetchUser() {
@@ -84,6 +88,9 @@ export function AnhActionsClient({
     function onClickOutside(e: MouseEvent) {
       if (!(e.target as HTMLElement).closest(".comment-item")) {
         setSelectedCommentId(null);
+      }
+      if (!(e.target as HTMLElement).closest(".emoji-picker")) {
+        setShowEmoji(false);
       }
     }
     document.addEventListener("mousedown", onClickOutside);
@@ -107,8 +114,8 @@ export function AnhActionsClient({
     }
   };
 
-  const handleSubmitComment = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmitComment = async (e?: React.FormEvent) => {
+    e?.preventDefault();
     if (!commentInput.trim() || loading.comment) return;
     setLoading((l) => ({ ...l, comment: true }));
     try {
@@ -166,6 +173,10 @@ export function AnhActionsClient({
     }
   };
 
+  const handleEmojiClick = (emojiData: { emoji: string }) => {
+    setCommentInput((prev) => prev + emojiData.emoji);
+  };
+
   if (currentUserId === null) return null;
 
   return (
@@ -180,10 +191,7 @@ export function AnhActionsClient({
         <div className="flex-1">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2 flex-wrap">
-              <Link
-                href={`/hoso/${tacgia.username}`}
-                className="font-semibold hover:text-primary whitespace-nowrap"
-              >
+              <Link href={`/hoso/${tacgia.username}`} className="font-semibold hover:text-primary">
                 {tacgia.ten}
               </Link>
               {tacgia.username && <span className="text-sm text-muted-foreground">@{tacgia.username}</span>}
@@ -219,19 +227,45 @@ export function AnhActionsClient({
       </div>
 
       {/* Comment Input */}
-      <form onSubmit={handleSubmitComment} className="flex gap-2">
-        <input
-          type="text"
-          placeholder="Viết bình luận..."
-          value={commentInput}
-          onChange={(e) => setCommentInput(e.target.value)}
-          disabled={loading.comment}
-          className="flex-1 rounded border px-3 py-1 focus:outline-none focus:ring focus:ring-primary"
-        />
-        <button type="submit" disabled={loading.comment || !commentInput.trim()} className="btn btn-primary px-4">
-          Gửi
-        </button>
-      </form>
+      <div className="relative">
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <input
+              type="text"
+              placeholder="Viết bình luận..."
+              value={commentInput}
+              onChange={(e) => setCommentInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSubmitComment();
+                }
+              }}
+              disabled={loading.comment}
+              className="w-full rounded border px-9 py-1 focus:outline-none focus:ring focus:ring-primary"
+            />
+            <div
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"
+              onClick={() => setShowEmoji((prev) => !prev)}
+            >
+              <FaRegSmile size={20} />
+            </div>
+          </div>
+          <button
+            onClick={handleSubmitComment}
+            disabled={loading.comment || !commentInput.trim()}
+            className="btn btn-primary px-4"
+          >
+            Gửi
+          </button>
+        </div>
+
+        {showEmoji && (
+          <div className="absolute z-50 top-12 left-0 emoji-picker">
+            <EmojiPicker onEmojiClick={(emojiData) => handleEmojiClick(emojiData)} />
+          </div>
+        )}
+      </div>
 
       {/* Comments List */}
       <div className="space-y-4 border-t pt-4">

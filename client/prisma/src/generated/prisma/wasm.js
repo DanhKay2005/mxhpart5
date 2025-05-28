@@ -167,7 +167,8 @@ exports.Prisma.PhuongTienScalarFieldEnum = {
   url: 'url',
   loai: 'loai',
   baivietId: 'baivietId',
-  noidung: 'noidung'
+  noidung: 'noidung',
+  sanphamId: 'sanphamId'
 };
 
 exports.Prisma.YeuthichBaivietScalarFieldEnum = {
@@ -193,6 +194,7 @@ exports.Prisma.ThongbaoScalarFieldEnum = {
   binhluanID: 'binhluanID',
   yeuthichAnhID: 'yeuthichAnhID',
   yeuthichBaiID: 'yeuthichBaiID',
+  yeuthichBinhLuanID: 'yeuthichBinhLuanID',
   loai: 'loai',
   ngaytao: 'ngaytao',
   ngaycapnhat: 'ngaycapnhat',
@@ -221,6 +223,19 @@ exports.Prisma.BaivietReportScalarFieldEnum = {
   ngaybaocao: 'ngaybaocao'
 };
 
+exports.Prisma.SanPhamScalarFieldEnum = {
+  id: 'id',
+  ten: 'ten',
+  mota: 'mota',
+  gia: 'gia',
+  hinhanh: 'hinhanh',
+  loaiID: 'loaiID',
+  nguoibanID: 'nguoibanID',
+  ngaytao: 'ngaytao',
+  ngaycapnhat: 'ngaycapnhat',
+  trangthai: 'trangthai'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -243,7 +258,8 @@ exports.Prisma.ModelName = {
   Thongbao: 'Thongbao',
   Chude: 'Chude',
   TinNhan: 'TinNhan',
-  BaivietReport: 'BaivietReport'
+  BaivietReport: 'BaivietReport',
+  SanPham: 'SanPham'
 };
 
 /**
