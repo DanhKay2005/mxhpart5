@@ -5,6 +5,10 @@ import {
 } from "@/actions/Hoso.action";
 import HosoNguoidung from "./HosoNguoidung";
 import { notFound } from "next/navigation";
+import { getAllChude } from "@/actions/Chude.action";
+import Sidebarfull from "@/components/Sidebar/SidebarTrai";
+import SidebarPhai from "@/components/Sidebar/SidebarPhai";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 export async function generateMetadata({ params }: { params: { username: string } }) {
   const user = await LayHoSoTuNguoiDung(params.username);
@@ -28,6 +32,7 @@ export async function generateMetadata({ params }: { params: { username: string 
 
 export default async function Hosopage({ params }: { params: { username: string } }) {
   const user = await LayHoSoTuNguoiDung(params.username);
+  const chudeList = await getAllChude();
 
   if (!user) {
     return notFound();
@@ -38,7 +43,24 @@ export default async function Hosopage({ params }: { params: { username: string 
     dangTheodoi(user.id),
   ]);
 
-  return (
-    <HosoNguoidung user={user} baiviet={baiviet} isOwner={nguoiDungDangTheoDoi} />
-  );
+  return (<div className="min-h-screen grid grid-cols-1 lg:grid-cols-10 gap-6 px-4 sm:px-6 lg:px-8">
+        {/* Sidebar trái */}
+        <aside className="hidden lg:flex lg:flex-col lg:col-span-2 gap-6">
+          <Sidebar />
+        </aside>
+  
+        {/* Nội dung chính */}
+        <main className="lg:col-span-5 space-y-6">
+          <HosoNguoidung user={user} baiviet={baiviet} isOwner={nguoiDungDangTheoDoi} chudeList={chudeList} />
+        </main>
+  
+        {/* Sidebar phải */}
+        <aside className="hidden lg:block lg:col-span-3">
+           <div className="sticky top-20">
+          <SidebarPhai />
+          </div>
+        </aside>
+      </div>
+    );
+    
 }

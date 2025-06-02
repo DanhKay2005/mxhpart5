@@ -1,9 +1,10 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { LayUserBoiId } from "./user.action";
+import { LayNguoiDungHienTai, LayUserBoiId } from "./user.action";
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export async function TaoBaiViet(
   noidung: string,
@@ -66,6 +67,7 @@ export async function getBaiViet() {
           { congkhai: true }, // bài công khai thì ai cũng xem được
           { AND: [{ congkhai: false }, { tacgiaID: currentUser?.id }] }, // bài riêng tư chỉ user tạo mới xem được
         ],
+        
       },
       include: {
         tacgia: {
@@ -241,7 +243,7 @@ export async function TaoBinhluan(baivietID: number, noidung: string) {
 }
 export async function XoaBaiviet(baivietID: number) {
   try {
-    const nguoidungID = await LayUserBoiId();
+    const nguoidung = await LayNguoiDungHienTai(); // { id, role }
 
     const baiviet = await prisma.baiviet.findUnique({
       where: { id: baivietID },
@@ -249,49 +251,85 @@ export async function XoaBaiviet(baivietID: number) {
     });
 
     if (!baiviet) throw new Error("Không tìm thấy bài viết");
-    if (baiviet.tacgiaID !== nguoidungID) throw new Error("Không có quyền xóa bài viết này");
 
-    // Xoá dữ liệu liên quan
-    await prisma.$transaction([
-      // Xóa thông báo liên quan đến bình luận của bài viết
-      prisma.thongbao.deleteMany({
-        where: {
-          binhluan: {
-            baivietID: baivietID,
+    const laTacGia = baiviet.tacgiaID === nguoidung.id;
+    const laAdmin = nguoidung.role === "admin";
+
+    if (!laTacGia && !laAdmin) {
+      throw new Error("Không có quyền xóa bài viết này");
+    }
+
+    const thongBaoAdmin = laAdmin
+      ? prisma.thongbao.create({
+          data: {
+            nguoidungID: baiviet.tacgiaID,
+            nguoitaoID: nguoidung.id,
+            noidung: "Bài viết của bạn đã vi phạm nguyên tắc cộng đồng và đã bị xoá bởi quản trị viên.",
+            loai: "he-thong", 
           },
-        },
-      }),
-      // Xóa thông báo liên quan đến like của bài viết
-      prisma.thongbao.deleteMany({
-        where: {
-          baivietID: baivietID,
-        },
-      }),
-      // Xóa bình luận của bài viết
-      prisma.binhluan.deleteMany({
-        where: {
-          baivietID: baivietID,
-        },
-      }),
-      // Xóa like của bài viết
-      prisma.yeuthichBaiviet.deleteMany({
-        where: {
-          baivietID: baivietID,
-        },
-      }),
-      // Cuối cùng, xóa bài viết
-      prisma.baiviet.delete({
-        where: { id: baivietID },
-      }),
-    ]);
+        })
+      : null;
+
+    const giaoTac: any[] = [
+  // Xoá thông báo liên quan đến bình luận
+  prisma.thongbao.deleteMany({
+    where: {
+      binhluan: {
+        baivietID: baivietID,
+      },
+    },
+  }),
+  // Xoá thông báo liên quan đến like bài viết
+  prisma.thongbao.deleteMany({
+    where: {
+      baivietID: baivietID,
+    },
+  }),
+  // Xoá bình luận
+  prisma.binhluan.deleteMany({
+    where: {
+      baivietID: baivietID,
+    },
+  }),
+  prisma.baivietReport.deleteMany({
+  where: {
+    baivietId: baivietID,
+  },
+}),
+  // Xoá like
+  prisma.yeuthichBaiviet.deleteMany({
+    where: {
+      baivietID: baivietID,
+    },
+  }),
+  // 🆕 Xoá phương tiện (ảnh/video)
+  prisma.phuongTien.deleteMany({
+    where: {
+      baivietId: baivietID,
+    },
+  }),
+  // Cuối cùng là xoá bài viết
+  prisma.baiviet.delete({
+    where: { id: baivietID },
+  }),
+];
+
+// Thêm thông báo nếu là admin
+if (laAdmin && thongBaoAdmin) giaoTac.push(thongBaoAdmin);
+
+await prisma.$transaction(giaoTac);
 
     revalidatePath("/");
     return { success: true };
   } catch (error: any) {
     console.error("❌ Thất bại khi xóa bài viết:", error.message);
-    return { success: false, error: error.message || "Thất bại khi xóa bài viết" };
+    return {
+      success: false,
+      error: error.message || "Thất bại khi xóa bài viết",
+    };
   }
 }
+
 
 
 export async function XoaBinhluan(binhluanID: number) {
@@ -344,26 +382,31 @@ export async function XoaBinhluan(binhluanID: number) {
 
 
 export async function CapNhatTrangThaiCongKhai(id: number, congkhai: boolean) {
-  const nguoidungID = await LayUserBoiId();
-  if (!nguoidungID) return { success: false, message: "Chưa đăng nhập" };
+  try {
+    const nguoidungID = await LayUserBoiId();
+    if (!nguoidungID) return { success: false, message: "Chưa đăng nhập" };
 
-  const baiviet = await prisma.baiviet.findUnique({
-    where: { id },
-    select: { tacgiaID: true },
-  });
+    const baiviet = await prisma.baiviet.findUnique({
+      where: { id },
+      select: { tacgiaID: true },
+    });
 
-  if (!baiviet || baiviet.tacgiaID !== nguoidungID) {
-    return { success: false, message: "Không có quyền cập nhật bài viết này" };
+    if (!baiviet || baiviet.tacgiaID !== nguoidungID) {
+      return { success: false, message: "Không có quyền cập nhật bài viết này" };
+    }
+
+    await prisma.baiviet.update({
+      where: { id },
+      data: { congkhai },
+    });
+
+    revalidatePath("/");
+
+    return { success: true };
+  } catch (error) {
+    console.error("Lỗi cập nhật công khai:", error);
+    return { success: false, message: "Đã xảy ra lỗi trong quá trình cập nhật" };
   }
-
-  await prisma.baiviet.update({
-    where: { id },
-    data: { congkhai },
-  });
-
-  revalidatePath("/"); 
-
-  return { success: true };
 }
 
 
@@ -448,3 +491,88 @@ export async function getBaivietById(id: number) {
   }
 }
 
+export async function getPhuongTienVideo() {
+  try {
+    const { userId: clerkId } = await auth();
+
+    const currentUser = clerkId
+      ? await prisma.user.findUnique({
+          where: { clerkId },
+        })
+      : null;
+
+    const baiviets = await prisma.baiviet.findMany({
+      orderBy: {
+        ngaytao: "desc",
+      },
+      where: {
+        OR: [
+          { congkhai: true },
+          { AND: [{ congkhai: false }, { tacgiaID: currentUser?.id }] },
+        ],
+      },
+      include: {
+        tacgia: {
+          select: {
+            id: true,
+            ten: true,
+            username: true,
+            hinhanh: true,
+            ngaytao: true,
+          },
+        },
+        phuongtien: {
+          where: {
+            loai: "video",
+          },
+          select: {
+            id: true,
+            noidung: true,
+            loai: true,
+            url: true,
+            baivietId: true,
+            sanphamId: true,
+          },
+        },
+        chude: true,
+        binhluan: {
+          select: {
+            id: true,
+            noidung: true,
+            ngaytao: true,
+            tacgia: {
+              select: {
+                id: true,
+                ten: true,
+                hinhanh: true,
+                ngaytao: true,
+              },
+            },
+          },
+        },
+        yeuthich: {
+          select: {
+            id: true,
+            nguoidungID: true,
+          },
+        },
+        _count: {
+          select: {
+            yeuthich: true,
+            binhluan: true,
+          },
+        },
+      },
+    });
+
+    const data = baiviets.map((bv) => ({
+      ...bv,
+      daThich: bv.yeuthich.some((yt) => yt.nguoidungID === currentUser?.id),
+    }));
+
+    return data;
+  } catch (error: any) {
+    console.error("❌ Lỗi khi lấy danh sách bài viết video:", error.message);
+    return [];
+  }
+}

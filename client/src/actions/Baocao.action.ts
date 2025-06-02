@@ -31,3 +31,18 @@ export async function BaocaoBaiviet(baivietId: number, lydo: string) {
     return { success: false, message: "Đã xảy ra lỗi khi gửi báo cáo." }
   }
 }
+
+
+export async function getAllBaocaos() {
+  return prisma.baivietReport.findMany({
+    include: {
+      baiviet: true,
+      nguoidung: true,
+    },
+    orderBy: {
+      ngaybaocao: "desc",
+    },
+  });
+}
+
+

@@ -20,12 +20,14 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Card } from "@/components/ui/card";
 
 type User = {
   id: string;
-  name: string;
+  ten: string;
   username: string;
-  avatarUrl?: string;
+  hinhanh?: string;
 };
 
 function UserListItem({
@@ -36,20 +38,25 @@ function UserListItem({
   children?: React.ReactNode;
 }) {
   return (
-    <li className="flex items-center gap-3">
+    <Card className="flex flex-col items-center justify-between p-4 rounded-xl shadow-md bg-white dark:bg-muted">
       <Link
         href={`/hoso/${user.username}`}
-        className="flex items-center gap-3 flex-1"
+        className="flex flex-col items-center gap-2"
       >
-        <img
-          src={user.avatarUrl || "/default-avatar.png"}
-          alt={user.name}
-          className="w-10 h-10 rounded-full object-cover"
-        />
-        <span>{user.name}</span>
+        <Avatar className="w-20 h-20 ring-1 ring-primary/20">
+          <AvatarImage src={user.hinhanh ?? "/avatar.png"} />
+        </Avatar>
+        <div className="text-center">
+          <p className="text-base font-semibold text-foreground dark:text-white truncate max-w-[120px]">
+            {user.ten}
+          </p>
+          <p className="text-xs text-muted-foreground dark:text-gray-400 truncate max-w-[120px]">
+            @{user.username}
+          </p>
+        </div>
       </Link>
-      {children}
-    </li>
+      <div className="mt-2">{children}</div>
+    </Card>
   );
 }
 
@@ -65,11 +72,11 @@ export default function BanBePage() {
       const userId = await getCurrentUserId();
       if (!userId) return;
 
-      const mapUser = (u: any) => ({
-        id: String(u.id),
-        name: u.ten ?? "Không tên",
-        username: u.username,
-        avatarUrl: u.hinhanh ?? undefined,
+      const mapUser = (user: any): User => ({
+        id: user.id,
+        ten: user.ten || "Không tên",
+        username: user.username,
+        hinhanh: user.hinhanh || "/avatar.png",
       });
 
       const [fs, rs, ss] = await Promise.all([
@@ -120,9 +127,11 @@ export default function BanBePage() {
             {friends.length === 0 ? (
               <p>Bạn chưa có bạn bè nào.</p>
             ) : (
-              <ul className="space-y-2">
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {friends.map((friend) => (
-                  <UserListItem key={friend.id} user={friend} />
+                  <UserListItem key={friend.id} user={friend}>
+                    <NutTheoDoi nguoidungId={Number(friend.id)} />
+                  </UserListItem>
                 ))}
               </ul>
             )}
@@ -135,7 +144,7 @@ export default function BanBePage() {
             {requests.length === 0 ? (
               <p>Không có lời mời kết bạn mới.</p>
             ) : (
-              <ul className="space-y-2">
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {requests.map((user) => (
                   <UserListItem key={user.id} user={user}>
                     <NutTheoDoi nguoidungId={Number(user.id)} />
@@ -152,7 +161,7 @@ export default function BanBePage() {
             {suggestions.length === 0 ? (
               <p>Không có gợi ý kết bạn.</p>
             ) : (
-              <ul className="space-y-2">
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {suggestions.map((user) => (
                   <UserListItem key={user.id} user={user}>
                     <NutTheoDoi nguoidungId={Number(user.id)} />

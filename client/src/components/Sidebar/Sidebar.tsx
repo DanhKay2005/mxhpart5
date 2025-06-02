@@ -1,18 +1,24 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 import { getAllChude } from "@/actions/Chude.action";
 import {
-  UserIcon,
-  Users,
   LayoutGrid,
+  Users,
   ShoppingCart,
   Settings,
   Video,
-  Newspaper,
 } from "lucide-react";
+
+const links = [
+  { href: "/chude", label: "Chủ đề", icon: LayoutGrid },
+  { href: "/banbe", label: "Bạn bè", icon: Users },
+  { href: "/buonban", label: "Buôn bán", icon: ShoppingCart },
+  { href: "/cai-dat", label: "Cài đặt", icon: Settings },
+  { href: "/video", label: "Video", icon: Video },
+];
 
 export default function Sidebar() {
   const [chude, setChude] = useState<{ id: number; ten: string }[]>([]);
@@ -31,63 +37,28 @@ export default function Sidebar() {
 
   if (!isLoaded)
     return (
-      <p className="text-center py-4 text-gray-500 dark:text-gray-400">Đang tải...</p>
+      <p className="text-center py-4 text-muted-foreground">Đang tải...</p>
     );
 
   if (!user)
     return (
-      <p className="text-center py-4 text-red-500 dark:text-red-400">
-        Vui lòng đăng nhập để xem sidebar
-      </p>
+      <p className="text-center py-4 text-destructive">Vui lòng đăng nhập để xem sidebar</p>
     );
 
-  const username =
-    user.username ?? user.emailAddresses[0]?.emailAddress.split("@")[0] ?? "user";
-
   return (
-    <div className="sticky top-20 space-y-6">
-      <div className="space-y-5 bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm">
-        <Link
-          href="/chude"
-          className="flex items-center gap-3 px-4 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-        >
-          <LayoutGrid className="w-5 h-5" />
-          Chủ đề
-        </Link>
-
-        <Link
-          href="/banbe"
-          className="flex items-center gap-3 px-4 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-        >
-          <Users className="w-5 h-5" />
-          Bạn bè
-        </Link>
-
-        {/* Các trang mới thêm */}
-        <Link
-          href="/buonban"
-          className="flex items-center gap-3 px-4 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-        >
-          <ShoppingCart className="w-5 h-5" />
-          Buôn bán
-        </Link>
-
-        <Link
-          href="/cai-dat"
-          className="flex items-center gap-3 px-4 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-        >
-          <Settings className="w-5 h-5" />
-          Cài đặt
-        </Link>
-
-        <Link
-          href="/video"
-          className="flex items-center gap-3 px-4 py-2 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-        >
-          <Video className="w-5 h-5" />
-          Video
-        </Link>
+    <aside className="sticky top-20 space-y-4">
+      <div className="space-y-5">
+        {links.map(({ href, label, icon: Icon }) => (
+          <Link
+            key={href}
+            href={href}
+            className="flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:bg-muted transition"
+          >
+            <Icon className="w-5 h-5" />
+            {label}
+          </Link>
+        ))}
       </div>
-    </div>
+    </aside>
   );
 }

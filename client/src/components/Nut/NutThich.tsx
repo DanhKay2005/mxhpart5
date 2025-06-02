@@ -15,7 +15,7 @@ export function NutThich({ liked, count, onClick, disabled }: LikeButtonProps) {
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`flex items-center gap-1 transition-colors ${
+      className={`flex items-center gap-2 transition-colors select-none ${
         liked ? "text-red-500" : "hover:text-red-500 text-muted-foreground"
       }`}
       aria-label={liked ? "Bỏ thích" : "Thích"}
@@ -26,9 +26,9 @@ export function NutThich({ liked, count, onClick, disabled }: LikeButtonProps) {
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <Heart className={`h-5 w-5 ${liked ? "fill-red-500" : ""}`} />
+        <Heart className={`h-6 w-6 ${liked ? "fill-red-500" : ""}`} />
       </motion.span>
-      {count}
+      <span className="text-lg font-semibold select-text">{count} Yêu thích</span>
     </button>
   );
 }

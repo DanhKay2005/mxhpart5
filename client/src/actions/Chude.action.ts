@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { auth } from "@clerk/nextjs/server";
 
 export async function getAllChude() {
   const chude = await prisma.chude.findMany({
@@ -15,10 +16,21 @@ export async function getAllChude() {
   return chude;
 }
 
-export async function getBaiVietTheoChuDe(chudeID: number, nguoidungID: number) {
+export async function getBaiVietTheoChuDe(chudeID: number) {
   try {
+    const { userId: clerkId } = await auth();
+
+    const currentUser = clerkId
+      ? await prisma.user.findUnique({
+          where: { clerkId },
+        })
+      : null;
+
     const baivietList = await prisma.baiviet.findMany({
-      where: { chudeID },
+      where: { 
+         chudeID,
+        
+       },
       orderBy: {
         ngaytao: "desc",
       },
@@ -33,6 +45,7 @@ export async function getBaiVietTheoChuDe(chudeID: number, nguoidungID: number) 
           },
         },
         chude: true,
+        phuongtien: true, 
         binhluan: {
           select: {
             id: true,
@@ -63,10 +76,17 @@ export async function getBaiVietTheoChuDe(chudeID: number, nguoidungID: number) 
       },
     });
 
+    // Lọc bài viết: nếu không phải tác giả thì chỉ lấy bài công khai
+    const filtered = baivietList.filter((bv) => {
+      if (!currentUser) return bv.congkhai; // nếu chưa đăng nhập thì chỉ xem bài công khai
+      if (bv.tacgia.id === currentUser.id) return true; // tác giả xem hết
+      return bv.congkhai; // người khác chỉ xem bài công khai
+    });
+
     // Đánh dấu bài viết đã được người dùng thích hay chưa
-    const data = baivietList.map((bv) => ({
+    const data = filtered.map((bv) => ({
       ...bv,
-      daThich: bv.yeuthich.some((yt) => yt.nguoidungID === nguoidungID),
+      daThich: bv.yeuthich.some((yt) => yt.nguoidungID === currentUser?.id),
     }));
 
     return data;

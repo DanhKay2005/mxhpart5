@@ -30,6 +30,12 @@ export async function searchUsersAndPosts(query: string) {
       email: true,
       ten: true,
       ngaytao: true,
+      hinhanh: true,
+      _count:{
+        select: {
+          nguoitheodoi: true,
+        },
+      }
     },
   });
 

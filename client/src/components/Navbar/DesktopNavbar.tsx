@@ -8,16 +8,15 @@ import {
   LayoutGrid,
   SearchIcon,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import {
-  SignInButton,
-  UserButton,
-  useUser,
-} from '@clerk/nextjs';
-import { ModeToggle } from '@/components/Nut/ModeToggle';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
+import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ModeToggle } from '@/components/Nut/ModeToggle';
+import { getAllChude } from '@/actions/Chude.action';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -25,8 +24,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { Input } from '@/components/ui/input';
-import { getAllChude } from '@/actions/Chude.action';
 import * as Icons from 'lucide-react';
 
 type Chude = {
@@ -75,95 +72,82 @@ function DesktopNavbar() {
   };
 
   return (
-  <div className="hidden md:flex items-center justify-between w-full max-w-7xl mx-auto px-4 mt-2">
-    {/* Left side: Navigation items */}
-    <div className="flex items-center space-x-4">
-      
-      <form onSubmit={handleSearch} className="relative w-full max-w-sm mx-4">
-      <Input
-        type="text"
-        placeholder="Tìm kiếm..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="pl-10 pr-4 py-2"
-      />
-      <SearchIcon className="absolute left-3 top-2.5 w-5 h-5 text-muted-foreground" />
-    </form>
+    <header className="hidden md:flex items-center justify-between w-full max-w-7xl mx-auto px-6 py-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      {/* Left: Logo + Navigation */}
+      <div className="flex items-center space-x-5">
+        {/* Search */}
+        <form onSubmit={handleSearch} className="relative max-w-sm">
+          <Input
+            type="text"
+            placeholder="Tìm kiếm..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-10 pr-4 py-2 h-9 rounded-full text-sm"
+          />
+          <SearchIcon className="absolute left-3 top-2.5 w-4 h-4 text-muted-foreground" />
+        </form>
 
-      <Button variant="ghost" className="flex items-center gap-2" asChild>
-        <Link href="/">
+        {/* Home */}
+        <Link href="/" className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-sm">
           <HomeIcon className="w-4 h-4" />
           <span className="hidden lg:inline">Trang chủ</span>
         </Link>
-      </Button>
 
-      {/* Chủ đề với NavigationMenu */}
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="gap-2">
-              <LayoutGrid className="w-4 h-4" />
-              <span className="hidden lg:inline">Chủ đề</span>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent className="p-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 min-w-[500px] max-w-[700px] max-h-[400px] overflow-y-auto">
-              {chudeList.map((cd) => (
-                <Link
-                  key={cd.id}
-                  href={`/chude/${cd.id}`}
-                  className="flex items-center gap-2 text-sm p-2 rounded-md hover:bg-muted transition"
-                >
-                  {getIcon(cd.icon)}
-                  {cd.ten}
-                </Link>
-              ))}
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-    </div>
-    
+        {/* Chủ đề */}
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="gap-1 text-sm">
+                <LayoutGrid className="w-4 h-4" />
+                <span className="hidden lg:inline">Chủ đề</span>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="p-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 min-w-[500px] max-w-[700px] max-h-[400px] overflow-y-auto">
+                {chudeList.map((cd) => (
+                  <Link
+                    key={cd.id}
+                    href={`/chude/${cd.id}`}
+                    className="flex items-center gap-2 text-sm p-2 rounded-md hover:bg-muted transition"
+                  >
+                    {getIcon(cd.icon)}
+                    {cd.ten}
+                  </Link>
+                ))}
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
 
-    {/* Right side: User actions */}
-    <div className="flex items-center space-x-4">
-      {user ? (
-        <>
-          <Button variant="ghost" className="flex items-center gap-2" asChild>
-            <Link href="/thongbao">
-              <BellIcon className="w-4 h-4" />
-              <span className="hidden lg:inline">Thông báo</span>
+      {/* Right: User Actions */}
+      <div className="flex items-center space-x-8">
+        {user ? (
+          <>
+            <Link href="/thongbao" className="text-muted-foreground hover:text-foreground">
+              <BellIcon className="w-5 h-5" />
             </Link>
-          </Button>
-
-          <Button variant="ghost" className="flex items-center gap-2" asChild>
-            <Link href="/tinnhan">
-              <MessageCircleIcon className="w-4 h-4" />
-              <span className="hidden lg:inline">
-                {isPending ? 'Đang tải...' : 'Tin nhắn'}
-              </span>
+            <Link href="/tinnhan" className="text-muted-foreground hover:text-foreground">
+              <MessageCircleIcon className="w-5 h-5" />
             </Link>
-          </Button>
-
-          <Button variant="ghost" className="flex items-center gap-2" asChild>
             <Link
               href={`/hoso/${
                 user.username ?? user.emailAddresses[0].emailAddress.split('@')[0]
               }`}
+              className="text-muted-foreground hover:text-foreground"
             >
-              <UserIcon className="w-4 h-4" />
-              <span className="hidden lg:inline">Hồ sơ</span>
+              <UserIcon className="w-5 h-5" />
             </Link>
-          </Button>
-          <ModeToggle />
-        </>
-      ) : (
-        <SignInButton mode="modal">
-          <Button variant="default">Đăng ký</Button>
-        </SignInButton>
-      )}
-    </div>
-    <UserButton />
-  </div>
-);
+            <ModeToggle />
+          </>
+        ) : (
+          <SignInButton mode="modal">
+            <Button size="sm" className="rounded-full px-4 py-1.5 text-sm">
+              Đăng ký
+            </Button>
+          </SignInButton>
+        )}
+      </div>
+    </header>
+  );
 }
 
 export default DesktopNavbar;

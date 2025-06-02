@@ -25,7 +25,7 @@ const geistMono = localFont({
 
 // Metadata
 export const metadata: Metadata = {
-  title: "Mạng xã hội",
+  title: "Furiya",
   description: "Được làm bởi Nhóm 4",
 };
 

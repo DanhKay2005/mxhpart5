@@ -42,9 +42,20 @@ export async function LayHoSoTuNguoiDung(username: string) {
 // ✅ Lấy bài viết từ một người dùng
 export async function LayBaivietTuNguoiDung(nguoidungID: number) {
   try {
+    const { userId: clerkId } = await auth();
+
+    const currentUser = clerkId
+      ? await prisma.user.findUnique({
+          where: { clerkId },
+        })
+      : null;
+
+    const isOwner = currentUser?.id === nguoidungID;
+
     const baiviet = await prisma.baiviet.findMany({
       where: {
         tacgiaID: nguoidungID,
+        ...(isOwner ? {} : { congkhai: true }),
       },
       include: {
         tacgia: {
@@ -73,13 +84,13 @@ export async function LayBaivietTuNguoiDung(nguoidungID: number) {
           },
         },
         phuongtien: {
-        select: {
-          id: true,
-          url: true,
-          loai: true,
-          noidung: true,
+          select: {
+            id: true,
+            url: true,
+            loai: true,
+            noidung: true,
+          },
         },
-      },
         _count: {
           select: {
             yeuthich: true,

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.13.23",
     "@clerk/nextjs": "^6.19.1",
     "@edgestore/react": "^0.5.2",
     "@edgestore/server": "^0.5.2",
@@ -33,6 +34,7 @@
     "crypto": "^1.0.1",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
+    "decimal.js": "^10.5.0",
     "dropdown-menu": "^0.1.1",
     "emoji-picker-react": "^4.12.2",
     "flowbite-react": "^0.11.7",

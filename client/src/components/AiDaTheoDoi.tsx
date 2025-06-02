@@ -54,7 +54,7 @@ export default function AiDaTheoDoi() {
     );
 
   return (
-    <div className="bg-background dark:bg-zinc-900 rounded-xl p-4 space-y-4 shadow-sm transition-colors duration-300">
+    <div className="space-y-4 px-1">
       <h2 className="text-base font-semibold text-foreground dark:text-white">
         Những người bạn có thể sẽ biết
       </h2>

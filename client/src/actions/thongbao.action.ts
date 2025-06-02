@@ -10,7 +10,10 @@ export default async function getthongbao() {
 
     const thongbao = await prisma.thongbao.findMany({
   where: {
-    nguoidungID,
+    OR: [
+    { nguoidungID },
+    { loai: "he-thong" }
+  ]
   },
   include: {
     nguoitao: {
@@ -29,6 +32,7 @@ export default async function getthongbao() {
     baiviet: {
       select: {
         noidung: true,
+        phuongtien:true,
       },
     },
   },

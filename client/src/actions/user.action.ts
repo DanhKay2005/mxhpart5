@@ -4,6 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import clerkClient from "@clerk/clerk-sdk-node";
 
 // Đồng bộ người dùng từ Clerk vào cơ sở dữ liệu
 export async function synUser() {
@@ -75,6 +76,9 @@ export async function LayUserBoiId() {
 
   const user = await LayUserBoiClerkId(clerkId);
   if (!user) throw new Error("Không tìm thấy người dùng");
+  
+  const clerkUser = await clerkClient.users.getUser(clerkId);
+  const role = clerkUser.publicMetadata.role ?? "user";
 
   return user.id;
 }
@@ -125,7 +129,7 @@ export async function RandomNguoiDung() {
           },
         },
       },
-      take: 10,
+      take: 3,
     });
 
     return randomUsers;
@@ -257,7 +261,20 @@ export async function getCurrentUserId(): Promise<number | null> {
 
   const user = await prisma.user.findUnique({
     where: { clerkId },
-    select: { id: true },
+    select: { id: true,
+      _count:{
+        select: {
+          nguoitheodoi: true,
+          dangtheodoi: true,
+          baiviet: true,
+        },
+      },
+      hinhanh: true,
+      ten: true,
+      username: true,
+      email: true,
+      ngaytao: true, // thêm ngày tạo nếu cần
+     },
   });
 
   if (!user) return null;
@@ -271,4 +288,37 @@ export async function getFollowingIds(userId: number): Promise<number[]> {
     select: { nguoitheodoiID: true },       // lấy người bạn đang follow
   });
   return following.map(f => f.nguoitheodoiID);
+}
+
+export async function LayNguoiDungHienTai() {
+  const { userId: clerkId } = await auth();
+  if (!clerkId) throw new Error("Chưa đăng nhập");
+
+  const user = await LayUserBoiClerkId(clerkId);
+  if (!user) throw new Error("Không tìm thấy người dùng");
+
+  const clerkUser = await clerkClient.users.getUser(clerkId);
+  const role = clerkUser.publicMetadata.role ?? "user";
+
+  return {
+    id: user.id,
+    role: role as string,
+  };
+}
+
+export async function adminCheck() {
+  const { userId: clerkId } = await auth();
+  if (!clerkId) throw new Error("Chưa đăng nhập");
+
+  const user = await LayUserBoiClerkId(clerkId);
+  if (!user) throw new Error("Không tìm thấy người dùng");
+
+  const clerkUser = await clerkClient.users.getUser(clerkId);
+  const role = clerkUser.publicMetadata.role ?? "user";
+
+  if (role !== "admin") {
+    throw new Error("Bạn không có quyền truy cập");
+  }
+
+  return user;
 }

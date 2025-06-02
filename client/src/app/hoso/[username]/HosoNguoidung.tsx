@@ -21,6 +21,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { MapPinIcon, LinkIcon, CalendarIcon, FileText } from "lucide-react";
 import { getFriends } from "@/actions/banbe.action";
 import NutTheoDoi from "@/components/Nut/NutTheoDoi";
+import { getAllChude } from "@/actions/Chude.action";
+import DangTaiBaiVietSheet from "@/components/BaiViet/DangTaiBaiVietSheet";
 
 type User = {
   id: number;
@@ -33,9 +35,10 @@ export type Props = {
   user: NonNullable<Awaited<ReturnType<typeof LayHoSoTuNguoiDung>>>;
   baiviet: any[];
   isOwner: boolean;
+  chudeList?: { id: number; ten: string }[];
 };
 
-export default function HosoNguoidung({ user, baiviet, isOwner }: Props) {
+export default function HosoNguoidung({ user, baiviet, isOwner, chudeList}: Props) {
   const { user: currentUser } = useUser();
   const router = useRouter();
 
@@ -174,9 +177,9 @@ export default function HosoNguoidung({ user, baiviet, isOwner }: Props) {
             {currentUser && (
               <div className="mt-6 w-full max-w-sm flex gap-3">
                 {isMyProfile ? (
-                  <Button variant="default" className="flex-1" onClick={() => setIsEditOpen(true)}>
-                    ✏️ Chỉnh sửa hồ sơ
-                  </Button>
+                  <Button variant="secondary" className="flex-1" onClick={() => setIsEditOpen(true)}>
+  ✏️ Chỉnh sửa hồ sơ
+</Button>
                 ) : (
                   <>
                     <Button
@@ -216,6 +219,7 @@ export default function HosoNguoidung({ user, baiviet, isOwner }: Props) {
           </TabsList>
 
           <TabsContent value="posts" className="p-6 space-y-6">
+            <DangTaiBaiVietSheet chudeList={chudeList} />
             {baiviet.length ? (
               baiviet.map((post) => <CardBaiViet key={post.id} baiviet={post} DbNguoidungId={user.id} />)
             ) : (

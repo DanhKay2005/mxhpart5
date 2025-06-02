@@ -20,17 +20,6 @@ type Props = {
   BanId?: string;
 };
 
-function randomID(len = 5) {
-  let result = "";
-  const chars =
-    "12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP";
-  const maxPos = chars.length;
-  for (let i = 0; i < len; i++) {
-    result += chars.charAt(Math.floor(Math.random() * maxPos));
-  }
-  return result;
-}
-
 export default function CallDialog({ open, setOpen, nguoiDungId, BanId }: Props) {
   const socket = initializeSocket(nguoiDungId);
   const active = CallStore((state) => state.active);
@@ -45,7 +34,6 @@ export default function CallDialog({ open, setOpen, nguoiDungId, BanId }: Props)
     socket.emit("rejectCall", { BanId });
   };
 
-  // Hàm join room, dùng làm ref callback cho div
   const startCall = React.useCallback(
     (element: HTMLDivElement | null) => {
       if (!element || !active || !callData) return;
@@ -54,13 +42,10 @@ export default function CallDialog({ open, setOpen, nguoiDungId, BanId }: Props)
       const serverSecret = process.env.NEXT_PUBLIC_ZEGO_SERVER_SECRET || "";
 
       if (!appID || !serverSecret) {
-        console.error(
-          "❌ Thiếu ZEGO App ID hoặc Server Secret trong biến môi trường."
-        );
+        console.error("❌ Thiếu ZEGO App ID hoặc Server Secret trong biến môi trường.");
         return;
       }
 
-      // Tạo token, userID = nguoiDungId, userName = callData.from.name
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appID,
         serverSecret,
@@ -71,27 +56,24 @@ export default function CallDialog({ open, setOpen, nguoiDungId, BanId }: Props)
 
       const zp = ZegoUIKitPrebuilt.create(kitToken);
 
+      const link =
+        typeof window !== "undefined"
+          ? `${window.location.protocol}//${window.location.host}${window.location.pathname}?roomID=${callData.roomID}`
+          : "";
+
       zp.joinRoom({
         container: element,
         sharedLinks: [
           {
             name: "Personal link",
-            url:
-              window.location.protocol +
-              "//" +
-              window.location.host +
-              window.location.pathname +
-              "?roomID=" +
-              callData.roomID,
+            url: link,
           },
         ],
         scenario: {
           mode: ZegoUIKitPrebuilt.GroupCall,
-          // Nếu muốn 1-on-1: mode: ZegoUIKitPrebuilt.OneONoneCall,
         },
       });
 
-      // Cleanup khi element bị unmount hoặc thay đổi
       return () => {
         zp.destroy();
       };
@@ -118,10 +100,7 @@ export default function CallDialog({ open, setOpen, nguoiDungId, BanId }: Props)
                 />
               </div>
             )}
-            <div
-              className="myCallContainer"
-              ref={startCall}
-            />
+            <div className="myCallContainer" ref={startCall} />
             <div className="flex items-center justify-center mt-10">
               <div
                 onClick={rejectCall}

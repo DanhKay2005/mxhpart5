@@ -1,10 +1,10 @@
 import { getBaiVietTheoChuDe, getAllChude } from "@/actions/Chude.action";
 import { currentUser } from "@clerk/nextjs/server";
 import CardBaiViet from "@/components/BaiViet/CardBaiViet";
-import DangTaiBaiVietWrapper from "@/components/BaiViet/DangTaiBaiVietWrapper";
 import { Separator } from "@/components/ui/separator";
 import { LayUserBoiId } from "@/actions/user.action";
 import SidebarChude from "@/components/Sidebar/SidebarChude";
+import DangTaiBaiVietSheet from "@/components/BaiViet/DangTaiBaiVietSheet";
 
 export default async function TrangChuDe({ params }: { params: { id: number } }) {
   const user = await currentUser();
@@ -30,44 +30,48 @@ export default async function TrangChuDe({ params }: { params: { id: number } })
   const chudeId = Number(params.id);
 
   const [baiviets, chudeList] = await Promise.all([
-    getBaiVietTheoChuDe(chudeId, DbNguoidungId),
+    getBaiVietTheoChuDe(chudeId),
     getAllChude(),
   ]);
 
   const chude = chudeList.find((cd) => cd.id === chudeId);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 grid grid-cols-1 md:grid-cols-[250px_1fr] gap-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 flex gap-8">
       {/* Sidebar chủ đề */}
-      <SidebarChude />
+      <aside className="sticky top-20 hidden md:block w-[250px] max-h-[calc(100vh-5rem)] overflow-auto">
+        <SidebarChude />
+      </aside>
 
       {/* Nội dung chính */}
-      <main>
-        <h1 className="text-2xl font-bold mb-4 text-center text-primary">
-          {chude ? `Chủ đề: ${chude.ten}` : "Chủ đề không tồn tại"}
+      <main className="flex-1 space-y-6">
+        <h1 className="text-3xl font-extrabold mb-6 text-center text-primary">
+          {chude ? ` ${chude.ten}` : "Chủ đề không tồn tại"}
         </h1>
 
-        <div className="mb-6 ">
-          <DangTaiBaiVietWrapper macDinhChuDeID={chudeId} />
-        </div>
+        <section className="mb-8">
+          <DangTaiBaiVietSheet macDinhChuDeID={chudeId} />
+        </section>
 
         <Separator className="my-4" />
 
-        <div className="space-y-6">
+        <section>
           {baiviets.length === 0 ? (
-            <p className="text-center text-muted-foreground">
+            <p className="text-center text-muted-foreground text-lg">
               Chưa có bài viết nào trong chủ đề này.
             </p>
           ) : (
-            baiviets.map((bv) => (
-              <CardBaiViet
-                key={bv.id}
-                baiviet={bv}
-                DbNguoidungId={DbNguoidungId}
-              />
-            ))
+            <div className="space-y-8">
+              {baiviets.map((bv) => (
+                <CardBaiViet
+                  key={bv.id}
+                  baiviet={bv}
+                  DbNguoidungId={DbNguoidungId}
+                />
+              ))}
+            </div>
           )}
-        </div>
+        </section>
       </main>
     </div>
   );

@@ -13,10 +13,10 @@ type Chude = {
 };
 
 function getChudeIcon(name?: string) {
-  if (!name) return <Icons.TagIcon className="w-5 h-5 text-muted-foreground" />;
+  if (!name) return <Icons.Tag className="w-5 h-5 text-gray-400" />;
   const IconComponent = ((Icons as unknown) as Record<string, LucideIcon>)[name];
-  if (!IconComponent) return <Icons.TagIcon className="w-5 h-5 text-muted-foreground" />;
-  return <IconComponent className="w-5 h-5 text-muted-foreground" />;
+  if (!IconComponent) return <Icons.Tag className="w-5 h-5 text-gray-400" />;
+  return <IconComponent className="w-5 h-5 text-gray-400" />;
 }
 
 export default function SidebarChude() {
@@ -26,14 +26,14 @@ export default function SidebarChude() {
     async function fetchChude() {
       const data = await getAllChude();
       const dataWithIcon = data.map((cd) => {
-        let icon = "TagIcon";
-        if (cd.ten.includes("Học bổng")) icon = "GiftIcon";
-        else if (cd.ten.includes("Học")) icon = "BookIcon";
-        else if (cd.ten.includes("Lịch")) icon = "CalendarIcon";
-        else if (cd.ten.includes("Việc")) icon = "BriefcaseIcon";
-        else if (cd.ten.includes("Công nghệ")) icon = "LaptopIcon";
-        else if (cd.ten.includes("Giải trí")) icon = "SmileIcon";
-        else if (cd.ten.includes("Ngoại khóa")) icon = "UsersIcon";
+        let icon = "Tag";
+        if (cd.ten.includes("Học bổng")) icon = "Gift";
+        else if (cd.ten.includes("Học")) icon = "BookOpen";
+        else if (cd.ten.includes("Lịch")) icon = "Calendar";
+        else if (cd.ten.includes("Việc")) icon = "Briefcase";
+        else if (cd.ten.includes("Công nghệ")) icon = "Laptop";
+        else if (cd.ten.includes("Giải trí")) icon = "Smile";
+        else if (cd.ten.includes("Ngoại khóa")) icon = "Users";
         return { ...cd, icon };
       });
       setChudeList(dataWithIcon);
@@ -43,17 +43,16 @@ export default function SidebarChude() {
   }, []);
 
   return (
-    <aside className="w-60 p-4  border-muted-foreground rounded-md shadow-sm ">
-      <h2 className="text-xl font-semibold mb-4 text-muted-foreground">Chủ đề</h2>
-      <nav className="flex flex-col gap-2">
-        {chudeList.map((cd) => (    
+    <aside className="w-60 p-4 bg-white rounded-lg border border-gray-200 shadow-sm">
+      <nav className="flex flex-col space-y-1">
+        {chudeList.map((cd) => (
           <Link
             key={cd.id}
             href={`/chude/${cd.id}`}
-            className="flex items-center gap-2 px-3 py-2 rounded hover:bg-primary/20 transition text-muted-foreground"
+            className="flex items-center gap-3 px-3 py-2 rounded-md text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition duration-150"
           >
             {getChudeIcon(cd.icon)}
-            <span>{cd.ten}</span>
+            <span className="text-2xl font-medium truncate">{cd.ten}</span>
           </Link>
         ))}
       </nav>
